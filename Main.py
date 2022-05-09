@@ -58,13 +58,11 @@ def log_in():
     clear()
     time.sleep(0.75)
 
-
     while True:    
         info_file = open('account_info.txt', 'r')
-
+        print('OEMS Login')
         acc_name = input('Please enter your username: ')
     
-
         for line in info_file:
             acc_info = line.split(',')
             acc_info_name = acc_info[0].strip()
@@ -77,7 +75,7 @@ def log_in():
                 
                     if acc_password == acc_info_password:
                         clear()
-                        time.sleep(0.75)
+                        time.sleep(0.75)                      
                         print(f'Logged in successfully. Welcome back {acc_name}.')
                         time.sleep(0.75)
                         while True:
@@ -86,14 +84,17 @@ def log_in():
                             if admin_confirmation == 'y' or admin_confirmation == 'Y':
                                 clear()
                                 time.sleep(0.75)
+
                                 while True:
                                     clear()
                                     admin_code = int(input('Please enter admin code (use this code for testing purposes:000) \nCode: '))
+                                    
                                     if admin_code == 000:
                                         time.sleep(0.75)
                                         print('Thank you, redirecting you to the admin menu...')
                                         session_status = 'admin'
                                         #admin menu funtion goes here
+                                    
                                     else:
                                         clear()
                                         time.sleep(0.75)
@@ -113,6 +114,7 @@ def log_in():
                     else:
                         time.sleep(0.75)
                         clear()
+                        print('OEMS Login')
                         print('Your password is incorrect, please try again.')
                         continue
             else:
@@ -127,49 +129,43 @@ def log_in():
                 clear()
                 main_menu()                       
 
+
 #account registration function
 def acc_register():
+    clear()
+    time.sleep(0.75)
+
     while True:
         status = True
         print('OEMS Account Registration\n')
-        acc_name = input('Please Enter Your Username: ')
+        acc_name = input('Please enter your username: ')
         file = open ('account_info.txt','r')
+
         for line in file:
             if line.startswith(acc_name):
                 status = False
                 break
+        
         if status == False:
-            print("Username exists")
+            print("This username already exists")
             continue
             #name checking    
-        acc_password = input('Please Enter Your Password: ')
-        confirmation = input('Please Confirm your Password: ')
+        
+        acc_password = input('Please enter your password: ')
+        confirmation = input('Please confirm your password: ')
 
         if acc_password != confirmation:
-<<<<<<< HEAD
-            continue
-        
-        else:
-            acc_info = [acc_name,acc_password]
-            file = open('account_info.txt', 'a', 1)
-            file.write(str(acc_info).strip('[]').strip().replace("'", '') + ',\n')
-=======
             print("Incorrect password please try again")
             continue 
             #password confirmation
+        
         elif acc_password == confirmation:
             acc_info = [acc_name, acc_password]
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
->>>>>>> 54a9dce5e3e0ea1a10bbcb73ff9408385018efd9
             file.close
             print('Your account has been successfully created, you will be redirected to the main menu.')
             break
-<<<<<<< HEAD
-    time.sleep(3)
-    main_menu()
-    #login() goes here when done
-=======
             #account registered
 
     option = '''What would you like to do?
@@ -185,7 +181,6 @@ def acc_register():
         quit()
     #execute command given by user
 
->>>>>>> 54a9dce5e3e0ea1a10bbcb73ff9408385018efd9
 
 #show event information
 def event_info():
