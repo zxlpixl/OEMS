@@ -7,11 +7,10 @@ session_status = 'guest'
 #start
 def start():
     clear()
-    print('OEMS Loading...')
+    print('OEMS is loading...')
     time.sleep(3)
     print('Done!')
     time.sleep(1)
-    clear()
     main_menu()
 
 
@@ -30,6 +29,8 @@ def exit():
 
 #main menu function
 def main_menu():
+    clear()
+    time.sleep(0.75)
     
     menu ='''Welcome to OEMS, The Online Event Management System!
 What would you like to do?
@@ -145,6 +146,14 @@ def acc_register():
         confirmation = input('Please Confirm your Password: ')
 
         if acc_password != confirmation:
+<<<<<<< HEAD
+            continue
+        
+        else:
+            acc_info = [acc_name,acc_password]
+            file = open('account_info.txt', 'a', 1)
+            file.write(str(acc_info).strip('[]').strip().replace("'", '') + ',\n')
+=======
             print("Incorrect password please try again")
             continue 
             #password confirmation
@@ -152,9 +161,15 @@ def acc_register():
             acc_info = [acc_name, acc_password]
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
+>>>>>>> 54a9dce5e3e0ea1a10bbcb73ff9408385018efd9
             file.close
             print('Your account has been successfully created, you will be redirected to the main menu.')
             break
+<<<<<<< HEAD
+    time.sleep(3)
+    main_menu()
+    #login() goes here when done
+=======
             #account registered
 
     option = '''What would you like to do?
@@ -170,6 +185,7 @@ def acc_register():
         quit()
     #execute command given by user
 
+>>>>>>> 54a9dce5e3e0ea1a10bbcb73ff9408385018efd9
 
 #show event information
 def event_info():
