@@ -7,11 +7,10 @@ session_status = 'guest'
 #start
 def start():
     clear()
-    print('OEMS Loading...')
+    print('OEMS is loading...')
     time.sleep(3)
     print('Done!')
     time.sleep(1)
-    clear()
     main_menu()
 
 
@@ -30,6 +29,8 @@ def exit():
 
 #main menu function
 def main_menu():
+    clear()
+    time.sleep(0.75)
     
     menu ='''Welcome to OEMS, The Online Event Management System!
 What would you like to do?
@@ -150,11 +151,13 @@ def acc_register():
         
         else:
             acc_info = [acc_name,acc_password]
-            file = open('account_info.txt', 'a')
+            file = open('account_info.txt', 'a', 1)
             file.write(str(acc_info).strip('[]').strip().replace("'", '') + ',\n')
             file.close
             print('Your account has been successfully created, you will be redirected to the login screen.')
             break
+    time.sleep(3)
+    main_menu()
     #login() goes here when done
 
 #show event information
