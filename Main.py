@@ -51,21 +51,29 @@ Choice: '''
 
 #account registration function
 def acc_register():
-    clear()
-    time.sleep(0.75)
+    status = True
     while True:
         print('OEMS Account Registration\n')
         acc_name = input('Please Enter Your Username: ')
+        file = open ('test.txt','r')
+        for line in file:
+            if line.startswith(acc_name):
+                status = False
+                break
+        if status == False:
+            print("Username exists")
+            continue
+
         acc_password = input('Please Enter Your Password: ')
         confirmation = input('Please Confirm your Password: ')
 
         if acc_password != confirmation:
-            continue
-        
+            print("Incorrect password please try again")
+            continue 
         else:
             acc_info = [acc_name, acc_password]
-            file = open('account_info.txt', 'a')
-            file.write(str(acc_info).strip('[]').replace("'", '') + '\n')
+            file = open('test.txt', 'a')
+            file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
             print('Your account has been successfully created, you will be redirected to the login screen.')
             break
