@@ -10,11 +10,16 @@ def clear():
         os.system('clear')
 
 
+#exit program
+def exit():
+    quit
+
+
 #main menu function
 def main_menu():
     clear()
     menu = '''
-Welcome to OEM, The Online Event Management System!
+Welcome to OEMS, The Online Event Management System!
 What would you like to do?
 1. Log In
 2. Register An Account
@@ -23,4 +28,15 @@ What would you like to do?
 
     print(menu)
 
-main_menu()
+
+#log in function
+def log_in():
+
+
+#account registration function
+def acc_register():
+
+
+
+#show event information
+def event_info():
