@@ -1,5 +1,6 @@
 import time
 import os
+from tkinter import N, Menu
 
 session_status = 'guest'
 
@@ -51,11 +52,11 @@ Choice: '''
 
 #account registration function
 def acc_register():
-    status = True
     while True:
+        status = True
         print('OEMS Account Registration\n')
         acc_name = input('Please Enter Your Username: ')
-        file = open ('test.txt','r')
+        file = open ('account_info.txt','r')
         for line in file:
             if line.startswith(acc_name):
                 status = False
@@ -63,21 +64,35 @@ def acc_register():
         if status == False:
             print("Username exists")
             continue
-
+            #name checking    
         acc_password = input('Please Enter Your Password: ')
         confirmation = input('Please Confirm your Password: ')
 
         if acc_password != confirmation:
             print("Incorrect password please try again")
             continue 
-        else:
+            #password confirmation
+        elif acc_password == confirmation:
             acc_info = [acc_name, acc_password]
-            file = open('test.txt', 'a')
+            file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
-            print('Your account has been successfully created, you will be redirected to the login screen.')
+            print('Your account has been successfully created, you will be redirected to the main menu.')
             break
-    #login() goes here when done
+            #account registered
+
+    option = '''What would you like to do?
+    1. Main Menu
+    2. Exit 
+    Choice: '''
+    #options for user
+    choice = int(input(option))
+
+    if choice == 1:
+        main_menu()
+    elif choice == 2:
+        quit()
+    #execute command given by user
 
 #show event information
 def event_info():
