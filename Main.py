@@ -1,6 +1,7 @@
 import time
 import os
 
+session_status = 'guest'
 
 #clear command
 def clear():
@@ -18,8 +19,12 @@ def exit():
 #main menu function
 def main_menu():
     clear()
-    menu = '''
-Welcome to OEMS, The Online Event Management System!
+    print('OEMS Loading...')
+    time.sleep(3)
+    print('Done!')
+    time.sleep(1)
+    clear()
+    menu ='''Welcome to OEMS, The Online Event Management System!
 What would you like to do?
 
 1. Log In
@@ -41,37 +46,35 @@ Choice: '''
 
 
 #log in function
-def log_in():
+#def log_in():
 
 
 #account registration function
 def acc_register():
-    temp_1 = 0
-    file_name = 'test.txt'
-    while temp_1 == 0:
-        account_name = input("Enter your username: ")
-        account_password = input("Enter your password: ")
-        confirmation_password = input("Reenter to confirm your password: ")
-        if confirmation_password != account_password:
-            print("Password does not match")
-            continue    
-        else: 
-            account_information = [account_name, account_password]
-            fhandler = open(file_name,'a')
-            fhandler.write = (str(account_information).strip("[]").replace("'","") +"\n")
-            fhandler.close
-            print("Account has been created")
-            temp_1 += 1
+    clear()
+    time.sleep(0.75)
+    while True:
+        print('OEMS Account Registration\n')
+        acc_name = input('Please Enter Your Username: ')
+        acc_password = input('Please Enter Your Password: ')
+        confirmation = input('Please Confirm your Password: ')
 
-
-acc_register()
-
+        if acc_password != confirmation:
+            continue
+        
+        else:
+            acc_info = [acc_name, acc_password]
+            file = open('account_info.txt', 'a')
+            file.write(str(acc_info).strip('[]').replace("'", '') + '\n')
+            file.close
+            print('Your account has been successfully created, you will be redirected to the login screen.')
+            break
+    #login() goes here when done
 
 #show event information
 def event_info():
     clear()
-    events = '''
-    Events Categories Available:
+    events = '''Events Categories Available:
     
     1. Sports
     2. E-Sports
@@ -80,6 +83,12 @@ def event_info():
     5. General Entertainment
     6. Back to Main Menu
     7. Exit
-    '''
+    
+    Choice: '''
     answer = int(input(events))
     #to be continued
+
+
+
+
+main_menu()
