@@ -35,7 +35,25 @@ def log_in():
 
 #account registration function
 def acc_register():
+    temp_1 = 0
+    file_name = 'test.txt'
+    while temp_1 == 0:
+        account_name = input("Enter your username: ")
+        account_password = input("Enter your password: ")
+        confirmation_password = input("Reenter to confirm your password: ")
+        if confirmation_password != account_password:
+            print("Password does not match")
+            continue    
+        else: 
+            account_information = [account_name, account_password]
+            fhandler = open(file_name,'a')
+            fhandler.write = (str(account_information).strip("[]").replace("'","") +"\n")
+            fhandler.close
+            print("Account has been created")
+            temp_1 += 1
 
+
+acc_register()
 
 
 #show event information
