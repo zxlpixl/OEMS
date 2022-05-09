@@ -125,40 +125,67 @@ def log_in():
             
             elif log_in_retry == 'n' or log_in_retry == 'N':
                 clear()
-                main_menu()
-           
-
-            
-
-                                  
-
-
-
-
+                main_menu()                       
 
 #account registration function
 def acc_register():
-    clear()
-    time.sleep(0.75)
     while True:
+        status = True
         print('OEMS Account Registration\n')
         acc_name = input('Please Enter Your Username: ')
+        file = open ('account_info.txt','r')
+        for line in file:
+            if line.startswith(acc_name):
+                status = False
+                break
+        if status == False:
+            print("Username exists")
+            continue
+            #name checking    
         acc_password = input('Please Enter Your Password: ')
         confirmation = input('Please Confirm your Password: ')
 
         if acc_password != confirmation:
+<<<<<<< HEAD
             continue
         
         else:
             acc_info = [acc_name,acc_password]
             file = open('account_info.txt', 'a', 1)
             file.write(str(acc_info).strip('[]').strip().replace("'", '') + ',\n')
+=======
+            print("Incorrect password please try again")
+            continue 
+            #password confirmation
+        elif acc_password == confirmation:
+            acc_info = [acc_name, acc_password]
+            file = open('account_info.txt', 'a',1)
+            file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
+>>>>>>> 54a9dce5e3e0ea1a10bbcb73ff9408385018efd9
             file.close
-            print('Your account has been successfully created, you will be redirected to the login screen.')
+            print('Your account has been successfully created, you will be redirected to the main menu.')
             break
+<<<<<<< HEAD
     time.sleep(3)
     main_menu()
     #login() goes here when done
+=======
+            #account registered
+
+    option = '''What would you like to do?
+    1. Main Menu
+    2. Exit 
+    Choice: '''
+    #options for user
+    choice = int(input(option))
+
+    if choice == 1:
+        main_menu()
+    elif choice == 2:
+        quit()
+    #execute command given by user
+
+>>>>>>> 54a9dce5e3e0ea1a10bbcb73ff9408385018efd9
 
 #show event information
 def event_info():
