@@ -112,9 +112,6 @@ Choice: '''
 
 
 
-
-
-
 #log in function
 def log_in():
     clear()
@@ -258,18 +255,11 @@ def acc_register():
             clear()
             time.sleep(0.75)
             acc_info = [acc_name, acc_password]
-<<<<<<< HEAD
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
             print('Your account has been successfully created.')
             time.sleep(3)
-=======
-            fhandler = open('account_info.txt', 'a',1)
-            fhandler.write (str(acc_info).strip('[]').replace("'", '') + '\n')
-            fhandler.close
-            print('Your account has been successfully created, you will be redirected to the main menu.')
->>>>>>> 43b067a2dd92cab1009d1b3ab6d4cbc8c312e1e8
             break
             #account registered
 
@@ -281,7 +271,6 @@ def acc_register():
     
 Choice: '''
     #options for user
-<<<<<<< HEAD
     clear()
     time.sleep(0.75)
     choice = int(input(option))
@@ -289,27 +278,12 @@ Choice: '''
     if choice == 1:
         main_menu()
     elif choice == 2:
-<<<<<<< HEAD
         log_in()
     elif choice == 3:
         quit()
-=======
-        exit()
->>>>>>> 43b067a2dd92cab1009d1b3ab6d4cbc8c312e1e8
-=======
-
-    while True:
-        choice = int(input(option))
-
-        if choice == 1:
-            main_menu()
-        elif choice == 2:
-            exit()
-        else:
-            print("Invalid option please try again")
-            continue
->>>>>>> 8474cbb043f6cd49ec2e80ef40b7b14ca0b42b96
     #execute command given by user
+
+
 
 
 #show event information
