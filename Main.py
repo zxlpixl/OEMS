@@ -281,6 +281,7 @@ def acc_register():
     
 Choice: '''
     #options for user
+<<<<<<< HEAD
     clear()
     time.sleep(0.75)
     choice = int(input(option))
@@ -295,6 +296,19 @@ Choice: '''
 =======
         exit()
 >>>>>>> 43b067a2dd92cab1009d1b3ab6d4cbc8c312e1e8
+=======
+
+    while True:
+        choice = int(input(option))
+
+        if choice == 1:
+            main_menu()
+        elif choice == 2:
+            exit()
+        else:
+            print("Invalid option please try again")
+            continue
+>>>>>>> 8474cbb043f6cd49ec2e80ef40b7b14ca0b42b96
     #execute command given by user
 
 
