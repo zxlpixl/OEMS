@@ -1,8 +1,1 @@
 test, test
-<<<<<<< HEAD
-user, password
-anon, anon
-pp, pp
-=======
-
->>>>>>> 8474cbb043f6cd49ec2e80ef40b7b14ca0b42b96

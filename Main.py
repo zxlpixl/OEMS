@@ -153,11 +153,13 @@ def log_in():
                                     admin_code = int(input('Please enter admin code (use this code for testing purposes:000) \nCode: '))
                                     
                                     if admin_code == 000:
+                                        clear()
                                         time.sleep(0.75)
                                         print('Thank you, redirecting you to the admin menu...')
                                         info_file.close
                                         session_status = 'admin'
                                         TF = False
+                                        time.sleep(3)
                                         main_menu()
                                                                            
                                     else:
@@ -265,22 +267,26 @@ def acc_register():
 
     option = '''What would you like to do?
 
-1. Main Menu
-2. Log In
-3. Exit 
-    
-Choice: '''
+    1. Main Menu
+    2. Log In
+    3. Exit 
+        
+    Choice: '''
     #options for user
     clear()
     time.sleep(0.75)
-    choice = int(input(option))
+    while True: 
+        choice = int(input(option))
 
-    if choice == 1:
-        main_menu()
-    elif choice == 2:
-        log_in()
-    elif choice == 3:
-        quit()
+        if choice == 1:
+            main_menu()
+        elif choice == 2:
+            log_in()
+        elif choice == 3:
+            quit()
+        else:
+            print("Invalid option please try again")
+            continue 
     #execute command given by user
 
 
