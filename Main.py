@@ -1,6 +1,5 @@
 import time
 import os
-from unicodedata import category
 
 session_status = 'guest'
 acc_name = None
