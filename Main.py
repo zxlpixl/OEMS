@@ -107,7 +107,7 @@ Choice: '''
         elif answer == 3:
             event_info()
         elif answer == 4:
-            quit()
+            exit()
         
 
 
@@ -229,9 +229,9 @@ def acc_register():
         status = True
         print('OEMS Account Registration\n')
         acc_name = input('Please enter your username: ')
-        file = open ('account_info.txt','r')
+        fhandler = open ('account_info.txt','r')
 
-        for line in file:
+        for line in fhandler:
             if line.startswith(acc_name):
                 status = False
                 break
@@ -258,11 +258,18 @@ def acc_register():
             clear()
             time.sleep(0.75)
             acc_info = [acc_name, acc_password]
+<<<<<<< HEAD
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
             print('Your account has been successfully created.')
             time.sleep(3)
+=======
+            fhandler = open('account_info.txt', 'a',1)
+            fhandler.write (str(acc_info).strip('[]').replace("'", '') + '\n')
+            fhandler.close
+            print('Your account has been successfully created, you will be redirected to the main menu.')
+>>>>>>> 43b067a2dd92cab1009d1b3ab6d4cbc8c312e1e8
             break
             #account registered
 
@@ -281,9 +288,13 @@ Choice: '''
     if choice == 1:
         main_menu()
     elif choice == 2:
+<<<<<<< HEAD
         log_in()
     elif choice == 3:
         quit()
+=======
+        exit()
+>>>>>>> 43b067a2dd92cab1009d1b3ab6d4cbc8c312e1e8
     #execute command given by user
 
 
