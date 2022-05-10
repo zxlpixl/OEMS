@@ -293,7 +293,8 @@ def acc_register():
 
 
 #show event information
-def event_info():
+def category():
+
     clear()
     events = '''Events Categories Available:
     
