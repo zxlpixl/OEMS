@@ -1,2 +1,1 @@
-GWeekly, 123
-brandon, 123
+test, test
