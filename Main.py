@@ -2,7 +2,7 @@ import time
 import os
 
 session_status = 'guest'
-
+acc_name = None
 
 #start
 def start():
@@ -14,6 +14,8 @@ def start():
     main_menu()
 
 
+
+
 #clear command
 def clear():
     if os.name == 'nt':
@@ -22,9 +24,13 @@ def clear():
         os.system('clear')
 
 
+
+
 #exit program
 def exit():
     quit
+
+
 
 
 #main menu function
@@ -32,34 +38,91 @@ def main_menu():
     clear()
     time.sleep(0.75)
     
-    menu ='''Welcome to OEMS, The Online Event Management System!
-What would you like to do?
+    if session_status == 'guest':
 
-1. Log In
-2. Register An Account
-3. Event Information
-4. Exit
+        menu ='''Welcome to OEMS, The Online Event Management System!
+    What would you like to do?
 
-Choice: '''
+    1. Log In
+    2. Register An Account
+    3. Event Information
+    4. Exit
 
-    answer = int(input(menu))
-    if answer == 1:
-        log_in()
-    elif answer == 2:
-        acc_register()
-    elif answer == 3:
-        event_info()
-    elif answer == 4:
-        quit()
+    Choice: '''
+
+        answer = int(input(menu))
+        if answer == 1:
+            log_in()
+        elif answer == 2:
+            acc_register()
+        elif answer == 3:
+            event_info()
+        elif answer == 4:
+            quit()
+
+
+    elif session_status == 'admin':
+        
+        print(f'Welcome to the OEMS admin menu, {acc_name}')
+        
+        menu ='''What would you like to do?
+
+    1. Add New Event #function to be created
+    2. Modify Event #function to be created
+    3. Event Information #function to be created
+    4. Customer Records #function to be created
+    5. Exit
+
+    Choice: '''
+
+        answer = int(input(menu))
+        if answer == 1:
+            log_in()
+        elif answer == 2:
+            acc_register()
+        elif answer == 3:
+            event_info()
+        elif answer == 4:
+            quit()
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #log in function
 def log_in():
     clear()
     time.sleep(0.75)
+    global session_status
+    TF = True
 
-    while True:    
-        info_file = open('account_info.txt', 'r')
+    while TF == True:    
+        info_file = open('account_info.txt', 'r', 1)
         print('OEMS Login')
         acc_name = input('Please enter your username: ')
     
@@ -70,7 +133,7 @@ def log_in():
 
             if acc_name == acc_info_name:
 
-                while True:
+                while TF == True:
                     acc_password = input('Please enter your password: ')
                 
                     if acc_password == acc_info_password:
@@ -78,39 +141,47 @@ def log_in():
                         time.sleep(0.75)                      
                         print(f'Logged in successfully. Welcome back {acc_name}.')
                         time.sleep(0.75)
-                        while True:
+                        while TF == True:
                             
                             admin_confirmation = input('Are you an admin? [y/n] ')
                             if admin_confirmation == 'y' or admin_confirmation == 'Y':
                                 clear()
                                 time.sleep(0.75)
 
-                                while True:
-                                    clear()
+                                while TF == True:
+                                
                                     admin_code = int(input('Please enter admin code (use this code for testing purposes:000) \nCode: '))
                                     
                                     if admin_code == 000:
                                         time.sleep(0.75)
                                         print('Thank you, redirecting you to the admin menu...')
+                                        info_file.close
                                         session_status = 'admin'
-                                        #admin menu funtion goes here
+                                        TF = False
+                                        main_menu()
+                                        
                                     
                                     else:
                                         clear()
                                         time.sleep(0.75)
                                         print('Admin code does not exist, please try again.')
                                         continue
-                            
+
+                                    
                             elif admin_confirmation == 'n' or admin_confirmation == 'N':
                                 clear()
                                 time.sleep(0.75)
                                 print('Redirecting you to the menu...')
+                                info_file.close
                                 session_status = 'registered'
+                                TF = False
                                 #registered menu function goes here
 
                             else:
                                 print('Answer not recognized, please try again.')
-                                continue                   
+                                continue  
+
+
                     else:
                         time.sleep(0.75)
                         clear()
@@ -127,7 +198,10 @@ def log_in():
             
             elif log_in_retry == 'n' or log_in_retry == 'N':
                 clear()
+                info_file.close
                 main_menu()                       
+
+
 
 
 #account registration function
