@@ -313,5 +313,34 @@ Choice: '''
 
 
 
+def add_event():
+    choice = category()
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    event_name = input('Please enter the event name: ')
+    event_price = int(input('How much is the event?(RM): '))
+
+    listid=1
+    fhandler = open ('test.txt','r')
+    for line in fhandler:
+        if line.endswith("\n"):
+            listid +=1
+    
+    event_list = [listid, categoryid, event_name, event_price]
+    fhandler = open ('test.txt','a',1)
+    fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
+    fhandler.close
+
+    print('Your event has been added')
 
 start()
