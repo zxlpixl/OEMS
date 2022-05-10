@@ -83,7 +83,7 @@ def main_menu():
         elif answer == 3:
             event_info()
         elif answer == 4:
-            quit()
+            exit()
         
 
 
@@ -213,9 +213,9 @@ def acc_register():
         status = True
         print('OEMS Account Registration\n')
         acc_name = input('Please enter your username: ')
-        file = open ('account_info.txt','r')
+        fhandler = open ('account_info.txt','r')
 
-        for line in file:
+        for line in fhandler:
             if line.startswith(acc_name):
                 status = False
                 break
@@ -235,9 +235,9 @@ def acc_register():
         
         elif acc_password == confirmation:
             acc_info = [acc_name, acc_password]
-            file = open('account_info.txt', 'a',1)
-            file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
-            file.close
+            fhandler = open('account_info.txt', 'a',1)
+            fhandler.write (str(acc_info).strip('[]').replace("'", '') + '\n')
+            fhandler.close
             print('Your account has been successfully created, you will be redirected to the main menu.')
             break
             #account registered
@@ -252,7 +252,7 @@ def acc_register():
     if choice == 1:
         main_menu()
     elif choice == 2:
-        quit()
+        exit()
     #execute command given by user
 
 
