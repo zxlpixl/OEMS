@@ -1,5 +1,6 @@
 import time
 import os
+from unicodedata import category
 
 session_status = 'guest'
 acc_name = None
@@ -56,7 +57,7 @@ Choice: '''
         elif answer == 2:
             acc_register()
         elif answer == 3:
-            event_info()
+            categories()
         elif answer == 4:
             quit()
 
@@ -69,7 +70,7 @@ Choice: '''
 
 1. Add New Event #function to be created
 2. Modify Event #function to be created
-3. Event Information #function to be created
+3. Event Information 
 4. Customer Records #function to be created
 5. Exit
 
@@ -81,7 +82,7 @@ Choice: '''
         elif answer == 2:
             acc_register()
         elif answer == 3:
-            event_info()
+            category()
         elif answer == 4:
             quit()
 
@@ -93,7 +94,7 @@ Choice: '''
         
         menu ='''What would you like to do?
 
-1. Event Information #function to be created
+1. Event Information 
 2. View Cart #function to be created
 3. Exit
 
@@ -101,13 +102,12 @@ Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
-            log_in()
+            categories()
         elif answer == 2:
-            acc_register()
+            print('placeholder')#view cart function here 
         elif answer == 3:
-            event_info()
-        elif answer == 4:
-            exit()
+            quit()
+       
         
 
 
@@ -267,9 +267,9 @@ def acc_register():
 
     option = '''What would you like to do?
 
-    1. Main Menu
-    2. Log In
-    3. Exit 
+1. Main Menu
+2. Log In
+3. Exit 
         
     Choice: '''
     #options for user
@@ -293,19 +293,20 @@ def acc_register():
 
 
 #show event information
-def event_info():
+def categories():
     clear()
+    time.sleep(0.75)
     events = '''Events Categories Available:
     
-    1. Sports
-    2. E-Sports
-    3. Technology
-    4. Art
-    5. General Entertainment
-    6. Back to Main Menu
-    7. Exit
-    
-    Choice: '''
+1. Sports
+2. E-Sports
+3. Technology
+4. Art
+5. General Entertainment
+6. Back to Main Menu
+7. Exit
+
+Choice: '''
     answer = int(input(events))
     #to be continued
 
