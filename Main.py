@@ -247,12 +247,17 @@ def acc_register():
     2. Exit 
     Choice: '''
     #options for user
-    choice = int(input(option))
 
-    if choice == 1:
-        main_menu()
-    elif choice == 2:
-        exit()
+    while True:
+        choice = int(input(option))
+
+        if choice == 1:
+            main_menu()
+        elif choice == 2:
+            exit()
+        else:
+            print("Invalid option please try again")
+            continue
     #execute command given by user
 
 
