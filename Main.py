@@ -27,7 +27,7 @@ def clear():
 
 
 #exit program
-def exit():
+def quit():
     quit
 
 
@@ -41,14 +41,14 @@ def main_menu():
     if session_status == 'guest':
 
         menu ='''Welcome to OEMS, The Online Event Management System!
-    What would you like to do?
+What would you like to do?
 
-    1. Log In
-    2. Register An Account
-    3. Event Information
-    4. Exit
+1. Log In
+2. Register An Account
+3. Event Information
+4. Exit
 
-    Choice: '''
+Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
@@ -67,13 +67,37 @@ def main_menu():
         
         menu ='''What would you like to do?
 
-    1. Add New Event #function to be created
-    2. Modify Event #function to be created
-    3. Event Information #function to be created
-    4. Customer Records #function to be created
-    5. Exit
+1. Add New Event #function to be created
+2. Modify Event #function to be created
+3. Event Information #function to be created
+4. Customer Records #function to be created
+5. Exit
 
-    Choice: '''
+Choice: '''
+
+        answer = int(input(menu))
+        if answer == 1:
+            log_in()
+        elif answer == 2:
+            acc_register()
+        elif answer == 3:
+            event_info()
+        elif answer == 4:
+            quit()
+
+
+
+    elif session_status == 'registered':
+        
+        print(f'Welcome back {acc_name}!')
+        
+        menu ='''What would you like to do?
+
+1. Event Information #function to be created
+2. View Cart #function to be created
+3. Exit
+
+Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
@@ -91,34 +115,12 @@ def main_menu():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #log in function
 def log_in():
     clear()
     time.sleep(0.75)
     global session_status
+    global acc_name
     TF = True
 
     while TF == True:    
@@ -140,6 +142,7 @@ def log_in():
                         clear()
                         time.sleep(0.75)                      
                         print(f'Logged in successfully. Welcome back {acc_name}.')
+                        
                         time.sleep(0.75)
                         while TF == True:
                             
@@ -159,15 +162,13 @@ def log_in():
                                         session_status = 'admin'
                                         TF = False
                                         main_menu()
-                                        
-                                    
+                                                                           
                                     else:
                                         clear()
                                         time.sleep(0.75)
                                         print('Admin code does not exist, please try again.')
                                         continue
 
-                                    
                             elif admin_confirmation == 'n' or admin_confirmation == 'N':
                                 clear()
                                 time.sleep(0.75)
@@ -175,31 +176,46 @@ def log_in():
                                 info_file.close
                                 session_status = 'registered'
                                 TF = False
-                                #registered menu function goes here
+                                main_menu()
 
                             else:
                                 print('Answer not recognized, please try again.')
                                 continue  
 
-
                     else:
-                        time.sleep(0.75)
                         clear()
+                        time.sleep(0.75)
                         print('OEMS Login')
                         print('Your password is incorrect, please try again.')
                         continue
             else:
                 continue
         else:
-            log_in_retry = input('The entered username does not exist, would you try again? [y/n]. ')
-            if log_in_retry == 'y' or log_in_retry == 'Y':
+            clear()
+            time.sleep(0.75)
+
+            log_in_retry = '''The entered username does not exist.
+What would you like to do?
+
+1. Retry
+2. Register new account
+3. Main menu
+
+Choice: '''
+
+            log_in_retry = input(log_in_retry)
+            if log_in_retry == '1':
                 clear()
+                time.sleep(0.75)
                 continue
             
-            elif log_in_retry == 'n' or log_in_retry == 'N':
-                clear()
+            elif log_in_retry == '2':
                 info_file.close
-                main_menu()                       
+                acc_name = None
+                acc_register()  
+
+            elif log_in_retry =='3':
+                main_menu()                     
 
 
 
@@ -221,7 +237,10 @@ def acc_register():
                 break
         
         if status == False:
-            print("This username already exists")
+            clear()
+            print("This username already exists, please use another username.")
+            time.sleep(3)
+            clear()
             continue
             #name checking    
         
@@ -229,29 +248,41 @@ def acc_register():
         confirmation = input('Please confirm your password: ')
 
         if acc_password != confirmation:
-            print("Incorrect password please try again")
+            clear()
+            time.sleep(0.75)
+            print("Incorrect password, please try again.")
             continue 
             #password confirmation
         
         elif acc_password == confirmation:
+            clear()
+            time.sleep(0.75)
             acc_info = [acc_name, acc_password]
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
-            print('Your account has been successfully created, you will be redirected to the main menu.')
+            print('Your account has been successfully created.')
+            time.sleep(3)
             break
             #account registered
 
     option = '''What would you like to do?
-    1. Main Menu
-    2. Exit 
-    Choice: '''
+
+1. Main Menu
+2. Log In
+3. Exit 
+    
+Choice: '''
     #options for user
+    clear()
+    time.sleep(0.75)
     choice = int(input(option))
 
     if choice == 1:
         main_menu()
     elif choice == 2:
+        log_in()
+    elif choice == 3:
         quit()
     #execute command given by user
 
