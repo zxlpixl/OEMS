@@ -57,7 +57,7 @@ Choice: '''
         elif answer == 2:
             acc_register()
         elif answer == 3:
-            categories()
+            category()
         elif answer == 4:
             quit()
 
@@ -102,7 +102,7 @@ Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
-            categories()
+            category()
         elif answer == 2:
             print('placeholder')#view cart function here 
         elif answer == 3:
@@ -293,7 +293,8 @@ def acc_register():
 
 
 #show event information
-def categories():
+def category():
+
     clear()
     time.sleep(0.75)
     events = '''Events Categories Available:
