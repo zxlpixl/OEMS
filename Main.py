@@ -228,6 +228,7 @@ def acc_register():
         print('OEMS Account Registration\n')
         acc_name = input('Please enter your username: ')
         fhandler = open ('account_info.txt','r')
+        #ask for username
 
         for line in fhandler:
             if line.startswith(acc_name):
@@ -240,7 +241,7 @@ def acc_register():
             time.sleep(3)
             clear()
             continue
-            #name checking    
+            #checking name availability  
         
         acc_password = input('Please enter your password: ')
         confirmation = input('Please confirm your password: ')
@@ -291,7 +292,7 @@ def acc_register():
 
 
 
-#show event information
+#show category function
 def category():
 
     clear()
@@ -308,10 +309,10 @@ def category():
 
 Choice: '''
     answer = int(input(events))
-    #to be continued
+    #asking user to choose category
 
 
-
+#event adding function
 def add_event():
     choice = category()
 
@@ -325,9 +326,11 @@ def add_event():
         categoryid = 'Art'
     if choice == 5:
         categoryid = 'General Entertainment'
+    #setting category based on user's input
 
     event_name = input('Please enter the event name: ')
     event_price = int(input('How much is the event?(RM): '))
+    #asking for name and price
 
     listid=1
     fhandler = open ('test.txt','r')
@@ -339,6 +342,7 @@ def add_event():
     fhandler = open ('test.txt','a',1)
     fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
     fhandler.close
+    #appending what was input into text file
 
     print('Your event has been added')
 
