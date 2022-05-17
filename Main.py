@@ -410,45 +410,4 @@ def list_event():
 
 
 
-
-
-def list_event():
-    choice = category()
-    clear()
-    time.sleep(0.75)
-
-    event_file = open('event.txt', 'r')
-    
-
-    if choice == 1:
-        categoryid = 'Sports'
-    if choice == 2:
-        categoryid = 'E-Sports'
-    if choice == 3:
-        categoryid = 'Technology'
-    if choice == 4:
-        categoryid = 'Art'
-    if choice == 5:
-        categoryid = 'General Entertainment'
-
-    
-
-    for line in event_file:
-        event_info = line.split(',')
-        event_info_category = event_info[1].strip()
-        event_info_name = event_info[2].strip()
-        event_info_price = event_info[3].strip()
-        
-        print('Category:',categoryid,'\n')
-        if categoryid == event_info_category:
-            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
-
-
-
-
-
-
-
-
-
 start()
