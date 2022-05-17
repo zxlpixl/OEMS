@@ -56,7 +56,7 @@ Choice: '''
         elif answer == 2:
             acc_register()
         elif answer == 3:
-            category()
+            list_event()
         elif answer == 4:
             quit()
 
@@ -67,7 +67,7 @@ Choice: '''
         
         menu ='''What would you like to do?
 
-1. Add New Event #function to be created
+1. Add New Event
 2. Modify Event #function to be created
 3. Event Information 
 4. Customer Records #function to be created
@@ -81,7 +81,7 @@ Choice: '''
         elif answer == 2:
             acc_register()
         elif answer == 3:
-            category()
+            list_event()
         elif answer == 4:
             quit()
         elif answer == 5:
@@ -103,7 +103,7 @@ Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
-            category()
+            list_event()
         elif answer == 2:
             print('placeholder')#view cart function here 
         elif answer == 3:
@@ -315,6 +315,8 @@ Choice: '''
     #asking user to choose category
 
 
+
+
 #event adding function
 def add_event():
     choice = category()
@@ -370,6 +372,39 @@ def add_event():
         main_menu()
     
 
+
+
+
+def list_event():
+    choice = category()
+    clear()
+    time.sleep(0.75)
+
+    event_file = open('event.txt', 'r')
+    
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    
+
+    for line in event_file:
+        event_info = line.split(',')
+        event_info_category = event_info[1].strip()
+        event_info_name = event_info[2].strip()
+        event_info_price = event_info[3].strip()
+        
+        print('Category:',categoryid,'\n')
+        if categoryid == event_info_category:
+            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
 
 
 
