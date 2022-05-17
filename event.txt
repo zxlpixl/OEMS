@@ -1,3 +1,1 @@
-1, sports1, 69
-2, Sports, sports1, 69
-3, Sports, sports1, 69
+1, Sports, sports1, 69
