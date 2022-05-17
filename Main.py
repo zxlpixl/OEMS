@@ -331,26 +331,44 @@ def add_event():
         categoryid = 'General Entertainment'
     #setting category based on user's input
 
-    event_name = input('Please enter the event name: ')
-    event_price = int(input('How much is the event?(RM): '))
-    #asking for name and price
+    while True:
+        status = True
+        event_name = input('Please enter the event name: ')
+        fhandler = open('event.txt','r')
+        for line in fhandler:
+                event_info = line.split(',')
+                name_availability = event_info[2].strip()
 
-    listid=1
-    fhandler = open ('event.txt','r')
-    for line in fhandler:
-        if line.endswith("\n"):
-            listid +=1
+                if name_availability == event_name:     
+                    status = False
+        
+        if status == False:
+            print("Event exists please try again")
+            continue
+
+        clear()
+        time.sleep(0.75)
+
+        event_price = int(input('How much is the event?(RM): '))
+        #asking for name and price
+
+        listid=1
+        fhandler = open ('event.txt','r')
+        for line in fhandler:
+            if line.endswith("\n"):
+                listid +=1
+        
+        event_list = [listid, categoryid, event_name, event_price]
+        fhandler = open ('event.txt','a',1)
+        fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
+        fhandler.close
+        #appending what was input into text file
+        clear()
+        time.sleep(0.75)
+        print('Your event has been added.')
+        time.sleep(3)
+        main_menu()
     
-    event_list = [listid, categoryid, event_name, event_price]
-    fhandler = open ('event.txt','a',1)
-    fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
-    fhandler.close
-    #appending what was input into text file
-    clear()
-    time.sleep(0.75)
-    print('Your event has been added.')
-    time.sleep(3)
-    main_menu()
 
 
 
