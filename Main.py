@@ -333,27 +333,210 @@ def add_event():
         categoryid = 'General Entertainment'
     #setting category based on user's input
 
-    event_name = input('Please enter the event name: ')
-    event_price = int(input('How much is the event?(RM): '))
-    #asking for name and price
+    while True:
+        status = True
+        event_name = input('Please enter the event name: ')
+        fhandler = open('event.txt','r')
+        for line in fhandler:
+                event_info = line.split(',')
+                name_availability = event_info[2].strip()
 
-    listid=1
-    fhandler = open ('event.txt','r')
-    for line in fhandler:
-        if line.endswith("\n"):
-            listid +=1
+                if name_availability == event_name:     
+                    status = False
+        
+        if status == False:
+            print("Event exists please try again")
+            continue
+
+        clear()
+        time.sleep(0.75)
+
+        event_price = int(input('How much is the event?(RM): '))
+        #asking for name and price
+
+        listid=1
+        fhandler = open ('event.txt','r')
+        for line in fhandler:
+            if line.endswith("\n"):
+                listid +=1
+        
+        event_list = [listid, categoryid, event_name, event_price]
+        fhandler = open ('event.txt','a',1)
+        fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
+        fhandler.close
+        #appending what was input into text file
+        clear()
+        time.sleep(0.75)
+        print('Your event has been added.')
+        time.sleep(3)
+        main_menu()
     
-    event_list = [listid, categoryid, event_name, event_price]
-    fhandler = open ('event.txt','a',1)
-    fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
-    fhandler.close
-    #appending what was input into text file
+
+
+
+
+def list_event():
+    choice = category()
     clear()
     time.sleep(0.75)
-    print('Your event has been added.')
-    time.sleep(3)
-    main_menu()
 
+    event_file = open('event.txt', 'r')
+    
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    
+
+    for line in event_file:
+        event_info = line.split(',')
+        event_info_category = event_info[1].strip()
+        event_info_name = event_info[2].strip()
+        event_info_price = event_info[3].strip()
+        
+        print('Category:',categoryid,'\n')
+        if categoryid == event_info_category:
+            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
+
+
+
+def list_event():
+    choice = category()
+    clear()
+    time.sleep(0.75)
+
+    event_file = open('event.txt', 'r')
+    
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    
+
+    for line in event_file:
+        event_info = line.split(',')
+        event_info_category = event_info[1].strip()
+        event_info_name = event_info[2].strip()
+        event_info_price = event_info[3].strip()
+        
+        print('Category:',categoryid,'\n')
+        if categoryid == event_info_category:
+            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
+
+
+
+def list_event():
+    choice = category()
+    clear()
+    time.sleep(0.75)
+
+    event_file = open('event.txt', 'r')
+    
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    
+
+    for line in event_file:
+        event_info = line.split(',')
+        event_info_category = event_info[1].strip()
+        event_info_name = event_info[2].strip()
+        event_info_price = event_info[3].strip()
+        
+        print('Category:',categoryid,'\n')
+        if categoryid == event_info_category:
+            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
+
+
+
+def list_event():
+    choice = category()
+    clear()
+    time.sleep(0.75)
+
+    event_file = open('event.txt', 'r')
+    
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    
+
+    for line in event_file:
+        event_info = line.split(',')
+        event_info_category = event_info[1].strip()
+        event_info_name = event_info[2].strip()
+        event_info_price = event_info[3].strip()
+        
+        print('Category:',categoryid,'\n')
+        if categoryid == event_info_category:
+            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
+
+
+
+def list_event():
+    choice = category()
+    clear()
+    time.sleep(0.75)
+
+    event_file = open('event.txt', 'r')
+    
+
+    if choice == 1:
+        categoryid = 'Sports'
+    if choice == 2:
+        categoryid = 'E-Sports'
+    if choice == 3:
+        categoryid = 'Technology'
+    if choice == 4:
+        categoryid = 'Art'
+    if choice == 5:
+        categoryid = 'General Entertainment'
+
+    
+
+    for line in event_file:
+        event_info = line.split(',')
+        event_info_category = event_info[1].strip()
+        event_info_name = event_info[2].strip()
+        event_info_price = event_info[3].strip()
+        
+        print('Category:',categoryid,'\n')
+        if categoryid == event_info_category:
+            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
 
 
 
