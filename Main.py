@@ -77,12 +77,14 @@ Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
-            log_in()
+            add_event()
         elif answer == 2:
             acc_register()
         elif answer == 3:
             category()
         elif answer == 4:
+            quit()
+        elif answer == 5:
             quit()
 
 
@@ -309,6 +311,7 @@ def category():
 
 Choice: '''
     answer = int(input(events))
+    return answer
     #asking user to choose category
 
 
@@ -333,17 +336,29 @@ def add_event():
     #asking for name and price
 
     listid=1
-    fhandler = open ('test.txt','r')
+    fhandler = open ('event.txt','r')
     for line in fhandler:
         if line.endswith("\n"):
             listid +=1
     
     event_list = [listid, categoryid, event_name, event_price]
-    fhandler = open ('test.txt','a',1)
+    fhandler = open ('event.txt','a',1)
     fhandler.write (str(event_list).strip('[]').replace("'", '') + '\n')
     fhandler.close
     #appending what was input into text file
+    clear()
+    time.sleep(0.75)
+    print('Your event has been added.')
+    time.sleep(3)
+    main_menu()
 
-    print('Your event has been added')
+
+
+
+
+
+
+
+
 
 start()
