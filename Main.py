@@ -310,8 +310,26 @@ def category():
 7. Exit
 
 Choice: '''
-    answer = int(input(events))
-    return answer
+    
+    while True:
+        answer = int(input(events))
+        
+        if answer <= 7:
+            if answer == 7:
+                quit()
+            elif answer == 6:
+                main_menu()
+            else:
+                return answer
+        
+        else:
+            clear()
+            time.sleep(0.75)
+            print("Invalid option please try again.")
+            clear()
+            time.sleep(0.75)
+            continue
+
     #asking user to choose category
 
 
@@ -339,6 +357,7 @@ def add_event():
         fhandler = open('event.txt','r')
         for line in fhandler:
                 event_info = line.split(',')
+                print(event_info)
                 name_availability = event_info[2].strip()
 
                 if name_availability == event_name:     
