@@ -1,0 +1,199 @@
+#1
+FUNCTION acc_register()
+
+    clear terminal 
+    0.75 seconds delay 
+
+    DOWHILE True 
+        status = True
+        PRINT('OEMS Account Registration\n')  
+        PRINT('Please enter your username: ')
+        Get acc_name
+
+        OPEN account_info.txt in READ mode 
+        READ line of file as fhandler
+        FOR line In fhandler STEP 1
+            IF line STARTS WITH acc_name THEN 
+                status = False
+                break
+            ENDIF
+        ENDFOR
+        
+        IF status = False THEN
+            clear terminal
+            PRINT("This username already exists, please use another username")
+            3 seconds delay
+            clear terminal
+            CONTINUE 
+        ENDIF
+
+        PRINT('Please enter your password: ')
+        Get acc_password  
+        PRINT('Please confirm your password: ')
+        Get confirmation
+        
+        IF acc_password != confirmation THEN 
+            clear terminal
+            0.75 seconds delay
+            PRINT("Incorrect password please try again")
+            CONTINUE
+        
+        ELIF acc_password = confirmation THEN
+            clear terminal
+            0.75 seconds delay
+            acc_info = [acc_name, acc_password]
+            OPEN account_info.txt in APPEND mode with buffering set to 1
+            APPEND acc_info into file as fhandler
+            CLOSE fhandler
+            PRINT('Your account has been successfully created.')
+            3 seconds delay
+            BREAK
+
+        ENDIF
+
+    ENDWHILE
+
+    option = '''What would you like to do?
+    1. Main Menu
+    2. Log In
+    3. Exit 
+    Choice: '''
+
+    clear terminal
+    0.75 seconds delay
+
+    DOWHILE True 
+        PRINT(option)
+        Get choice
+    
+        IF choice == 1 THEN
+            CALL FUNCTION main_menu()
+        ELIF choice == 2 THEN
+            CALL FUNCTION log_in()
+        ELIF choice == 3 THEN   
+            CALL FUNCTION quit()
+        ELSE 
+            PRINT("Invalid option please try again")
+            continue 
+        ENDIF
+
+    ENDWHILE
+
+ENDFUNCTION       
+    
+
+
+#2
+FUNCTION category()
+
+    clear terminal  
+    0.75 seconds delay
+
+    events = '''Events Categories Available:
+    
+    1. Sports
+    2. E-Sports
+    3. Technology
+    4. Art
+    5. General Entertainment
+    6. Back to Main Menu
+
+    Choice: '''
+
+    DOWHILE True
+        PRINT(events)
+        Get answer
+        
+        IF answer <= 6 THEN
+            ELIF answer == 6 THEN
+                CALL FUNCTION main_menu()
+            ELSE
+                RETURN answer
+            ENDIF
+
+        ELSE
+            clear terminal
+            0.75 seconds delay
+            PRINT("Invalid option please try again.")
+            clear terminal
+            0.75 seconds delay
+            CONTINUE
+
+        ENDIF
+
+    ENDWHILE
+
+ENDFUNCTION
+
+
+
+
+#3 
+FUNCTION add_event()
+
+    choice = CALL FUNCTION category()
+
+    IF choice == 1 THEN
+        categoryid = 'Sports'
+    ELIF choice == 2 THEN
+        categoryid = 'E-Sports'
+    ELIF choice == 3 THEN
+        categoryid = 'Technology'
+    ELIF choice == 4 THEN
+        categoryid = 'Art'
+    ELIF choice == 5 THEN
+        categoryid = 'General Entertainment'
+    ENDIF
+
+    DOWHILE True
+        status = True
+        PRINT('Please enter the event name: ')
+        Get event_name
+
+        OPEN event.txt in READ mode 
+        READ line of file as fhandler
+        FOR line In fhandler STEP 1
+            
+            SPLIT line as event_info using "," as delimiter
+            STRIP event_info with an index of 2 as name_availability
+
+            IF name_availability == event_name THEN
+                status  = False  
+            ENDIF
+        ENDFOR
+        
+        IF status == False:
+            PRINT("Event exsits please try again")
+            CONTINUE
+        ENDIF
+
+        clear terminal 
+        0.75 seconds delay
+
+        PRINT('How much is the event?(RM): ')
+        Get event_price
+
+        listid=1
+        OPEN event.txt in READ mode 
+        READ line of file as fhandler
+        FOR line In fhandler STEP 1
+            IF line ENDS WITH ("\n") THEN
+                listid +=1
+            ENDIF
+        ENDFOR
+
+        event_list = [listid, categoryid, event_name, event_price] 
+        OPEN event.txt in APPEND mode with buffering set to 1
+        APPEND event_list into file as fhandler
+        CLOSE fhandler
+
+        clear terminal
+        0.75 seconds delay
+        PRINT("Invalid option please try again.")
+        clear terminal 
+        0.75 seconds delay
+        CONTINUE
+    
+    ENDWHILE
+
+ENDFUNCTION
