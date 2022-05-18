@@ -419,7 +419,7 @@ def modify_event():
 Choice: ''' 
 
     if event_id == choice_id:
-        option_input = 1
+        option_input = int(input())
         if option_input == 1:
             choice = category()
             if choice == 1:
