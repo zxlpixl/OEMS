@@ -403,10 +403,12 @@ def modify_event():
 
 
     option = '''Options available:
-        1. Change event category
-        2. Change event name
-        3. Change event price
-        4. Delete event ''' 
+1. Change event category
+2. Change event name
+3. Change event price
+4. Delete event 
+
+Choice: ''' 
 
     if event_id == choice_id:
         option_input = int(input(option))
