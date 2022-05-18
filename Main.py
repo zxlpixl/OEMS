@@ -353,11 +353,11 @@ def add_event():
         event_name = input('Please enter the event name: ')
         fhandler = open('event.txt','r')
         for line in fhandler:
-            event_info = line.split(',')
-            name_availability = event_info[2].strip()
+                event_info = line.split(',')
+                name_availability = event_info[2].strip()
 
-            if name_availability == event_name:     
-                status = False
+                if name_availability == event_name:     
+                    status = False
         
         if status == False:
             print("Event exists please try again")
@@ -389,7 +389,7 @@ def add_event():
 
 
 
-
+#list event function
 def list_event():
     choice = category()
     clear()
@@ -413,13 +413,90 @@ def list_event():
 
     for line in event_file:
         event_info = line.split(',')
+        event_info_id = event_info[0].strip()
         event_info_category = event_info[1].strip()
         event_info_name = event_info[2].strip()
         event_info_price = event_info[3].strip()
         
         print('Category:',categoryid,'\n')
         if categoryid == event_info_category:
-            print(f'Event:{event_info_name}          Price:RM{event_info_price}')
+            print(f'ID:{event_info_id}          Event:{event_info_name}          Price:RM{event_info_price}')
+
+
+
+
+def list_event_menu():
+    global session_status
+
+ 
+    if session_status == 'guest':
+        event_menu = '''What would you like to do?
+
+1.Back to main menu
+
+Choice: '''
+
+        while True:
+            choice = input(event_menu)
+            if choice == '1':
+                main_menu()
+            else:
+                clear()
+                print('Invalid choice, please try again.')
+                time.sleep(3)
+                clear()
+                continue
+
+    if session_status == 'admin':
+        event_menu = '''What would you like to do?
+
+1.Modify event records
+2.Back to main menu
+
+Choice: '''
+
+        while True:
+            choice = input(event_menu)
+            if choice == '1':
+                #MODIFY EVENT FUNCTION
+            elif choice == '2':
+                main_menu()
+            else:
+                clear()
+                print('Invalid choice, please try again.')
+                time.sleep(3)
+                clear()
+                continue
+
+    if session_status == 'registered':
+        event_menu = '''What would you like to do?
+
+1.Add events to cart
+2.Back to main menu
+
+Choice: '''
+        while True:
+            choice = input(event_menu)
+            if choice == '1':
+                #CART FUNCTION
+            elif choice == '2':
+                main_menu()
+            else:
+                clear()
+                print('Invalid choice, please try again.')
+                time.sleep(3)
+                clear()
+                continue
+
+
+#cart_function
+def cart():
+
+
+
+
+
+
 
 
 
