@@ -397,7 +397,7 @@ def add_event():
 def modify_event():
     
     event_list()
-    choice_id = (input("Which event would you like to modify?[ID]: "))
+    choice_id = input("Which event would you like to modify?[ID]: ")
 
     fhandler_read = open('event.txt','r')
     
@@ -408,35 +408,53 @@ def modify_event():
         event_name = event_info[2].strip()
         event_price =  event_info[3].strip()
         
-
-
-    '''option = Options available:
+        option = '''Options available:
 1. Change event category
 2. Change event name
 3. Change event price
 4. Delete event 
 
-Choice: ''' 
+Choice: '''
 
-    if event_id == choice_id:
-        option_input = 1
-        if option_input == 1:
-            choice = category()
-            if choice == 1:
-                new_category = 'Sports'
-            elif choice == 2:
-                new_category = 'E-Sports'
-            elif choice == 3:
-                new_category = 'Technology'
-            elif choice == 4:
-                new_category = 'Art'
-            elif choice == 5:
-                new_category = 'General Entertainment'
+        if event_id == choice_id:
+            option_input = int(input(option))
+            if option_input == 1:
+                choice = category()
+                
+                if choice == 1:
+                    new_category = 'Sports'
+                    break
+                elif choice == 2:
+                    new_category = 'E-Sports'
+                    break
+                elif choice == 3:
+                    new_category = 'Technology'
+                    break
+                elif choice == 4:
+                    new_category = 'Art'
+                    break
+                elif choice == 5:
+                    new_category = 'General Entertainment'
+                    break
+
+    list_data = []
+    for line in fhandler_read:
+        print (line)
+        print (list_data)
+        if line[0] == choice_id:
+
+            updated_category = event_category.replace(event_category, new_category)
+            list_data.append(f'{event_id}, {updated_category}, {event_name}, {event_price}')
+        else:
+            list_data.append(line)
         
-        list_data = []
-        fhandler_write = open('event.txt','w',1)
-        print(event_info)
-        #fhandler_write.write(list_data)
+    
+    #fhandler_read.close()
+    
+    #fhandler_write = open('event.txt','w',1)
+    #fhandler_write.write(str(list_data))
+    #fhandler_write.close()
+    return
         
 
 
