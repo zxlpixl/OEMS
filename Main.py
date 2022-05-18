@@ -353,11 +353,11 @@ def add_event():
         event_name = input('Please enter the event name: ')
         fhandler = open('event.txt','r')
         for line in fhandler:
-                event_info = line.split(',')
-                name_availability = event_info[2].strip()
+            event_info = line.split(',')
+            name_availability = event_info[2].strip()
 
-                if name_availability == event_name:     
-                    status = False
+            if name_availability == event_name:     
+                status = False
         
         if status == False:
             print("Event exists please try again")
