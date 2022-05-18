@@ -316,7 +316,7 @@ Choice: '''
         
         if answer <= 7:
             if answer == 7:
-                quit()
+                break
             elif answer == 6:
                 main_menu()
             else:
@@ -329,7 +329,8 @@ Choice: '''
             clear()
             time.sleep(0.75)
             continue
-
+    
+    exit()
     #asking user to choose category
 
 
