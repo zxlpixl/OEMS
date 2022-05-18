@@ -446,7 +446,7 @@ Choice: '''
         list_data_temp = []         
         list_data = fhandler_read.readlines()
         for line in list_data:
-
+            
             if line.startswith(choice_id):
                 line = line.replace(event_category, new_category)
             list_data_temp.append(line)
