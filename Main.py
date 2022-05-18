@@ -341,13 +341,13 @@ def add_event():
 
     if choice == 1:
         categoryid = 'Sports'
-    if choice == 2:
+    elif choice == 2:
         categoryid = 'E-Sports'
-    if choice == 3:
+    elif choice == 3:
         categoryid = 'Technology'
-    if choice == 4:
+    elif choice == 4:
         categoryid = 'Art'
-    if choice == 5:
+    elif choice == 5:
         categoryid = 'General Entertainment'
     #setting category based on user's input
 
