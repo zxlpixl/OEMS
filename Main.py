@@ -416,22 +416,6 @@ def modify_event():
 
 Choice: '''
 
-<<<<<<< HEAD
-    if event_id == choice_id:
-        option_input = int(input())
-        if option_input == 1:
-            choice = category()
-            if choice == 1:
-                new_category = 'Sports'
-            elif choice == 2:
-                new_category = 'E-Sports'
-            elif choice == 3:
-                new_category = 'Technology'
-            elif choice == 4:
-                new_category = 'Art'
-            elif choice == 5:
-                new_category = 'General Entertainment'
-=======
         if event_id == choice_id:
             option_input = int(input(option))
             if option_input == 1:
@@ -463,7 +447,6 @@ Choice: '''
             list_data.append(f'{event_id}, {updated_category}, {event_name}, {event_price}')
         else:
             list_data.append(line)
->>>>>>> 3e1d0eadb3f1b286035874bcf68df4a16c0dd818
         
     
     #fhandler_read.close()
