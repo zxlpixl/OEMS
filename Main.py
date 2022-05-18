@@ -56,7 +56,7 @@ Choice: '''
         elif answer == 2:
             acc_register()
         elif answer == 3:
-            list_event()
+             list_event_menu()
         elif answer == 4:
             quit()
 
@@ -81,7 +81,7 @@ Choice: '''
         elif answer == 2:
             modify_event()
         elif answer == 3:
-            list_event()
+            list_event_menu()
         elif answer == 4:
             quit()
         elif answer == 5:
@@ -103,7 +103,7 @@ Choice: '''
 
         answer = int(input(menu))
         if answer == 1:
-            list_event()
+            list_event_menu()
         elif answer == 2:
             print('placeholder')#view cart function here 
         elif answer == 3:
@@ -222,10 +222,11 @@ Choice: '''
 
 #account registration function
 def acc_register():
+    TF = True
     clear()
     time.sleep(0.75)
 
-    while True:
+    while TF == True:
         status = True
         print('OEMS Account Registration\n')
         acc_name = input('Please enter your username: ')
@@ -277,12 +278,14 @@ def acc_register():
     #options for user
     clear()
     time.sleep(0.75)
-    while True: 
+    while TF == True: 
         choice = int(input(option))
 
         if choice == 1:
+            TF = False
             main_menu()
         elif choice == 2:
+            TF = False
             log_in()
         elif choice == 3:
             quit()
@@ -296,7 +299,7 @@ def acc_register():
 
 #show category function
 def category():
-
+    TF = True
     clear()
     time.sleep(0.75)
     events = '''Events Categories Available:
@@ -310,11 +313,12 @@ def category():
 
 Choice: '''
     
-    while True:
+    while TF == True:
         answer = int(input(events))
         
         if answer <= 6:
             if answer == 6:
+                TF = False
                 main_menu()
             else:
                 return answer
@@ -334,6 +338,7 @@ Choice: '''
 
 #event adding function
 def add_event():
+    TF = True
     choice = category()
 
     if choice == 1:
@@ -348,7 +353,7 @@ def add_event():
         categoryid = 'General Entertainment'
     #setting category based on user's input
 
-    while True:
+    while TF == True:
         status = True
         event_name = input('Please enter the event name: ')
         fhandler = open('event.txt','r')
@@ -384,25 +389,28 @@ def add_event():
         time.sleep(0.75)
         print('Your event has been added.')
         time.sleep(3)
+        TF == False
         main_menu()
     
 
 #modify event function
 def modify_event():
     
-    list_event()
+    event_list()
     choice_id = (input("Which event would you like to modify?[ID]: "))
 
-    fhandler = open('event.txt','r')
-    for line in fhandler:
+    fhandler_read = open('event.txt','r')
+    
+    for line in fhandler_read:
         event_info = line.split(',')
         event_id = event_info[0].strip()
         event_category = event_info[1].strip()
         event_name = event_info[2].strip()
         event_price =  event_info[3].strip()
+        
 
 
-    option = '''Options available:
+    '''option = Options available:
 1. Change event category
 2. Change event name
 3. Change event price
@@ -411,7 +419,7 @@ def modify_event():
 Choice: ''' 
 
     if event_id == choice_id:
-        option_input = int(input(option))
+        option_input = 1
         if option_input == 1:
             choice = category()
             if choice == 1:
@@ -425,13 +433,15 @@ Choice: '''
             elif choice == 5:
                 new_category = 'General Entertainment'
         
-        fhandler = open('event.txt','w',1)
-        fhandler.write (str(new_category).replace(event_category,new_category))
-        fhandler.close
+        list_data = []
+        fhandler_write = open('event.txt','w',1)
+        print(event_info)
+        #fhandler_write.write(list_data)
+        
 
 
 #list event function
-def list_event():
+def event_list():
     choice = category()
     clear()
     time.sleep(0.75)
@@ -467,9 +477,11 @@ def list_event():
 
 
 def list_event_menu():
+    event_list()
+
     global session_status
 
- 
+    TF = True
     if session_status == 'guest':
         event_menu = '''What would you like to do?
 
@@ -477,9 +489,10 @@ def list_event_menu():
 
 Choice: '''
 
-        while True:
+        while TF == True:
             choice = input(event_menu)
             if choice == '1':
+                TF = False
                 main_menu()
             else:
                 clear()
@@ -496,11 +509,13 @@ Choice: '''
 
 Choice: '''
 
-        while True:
+        while TF == True:
             choice = input(event_menu)
             if choice == '1':
+                TF = False
                 modify_event()
             elif choice == '2':
+                TF = False
                 main_menu()
             else:
                 clear()
@@ -516,11 +531,13 @@ Choice: '''
 2.Back to main menu
 
 Choice: '''
-    '''  while True:
+    '''  while TF == True:
             choice = input(event_menu)
             if choice == '1':
+                TF = False
                 #CART FUNCTION
             elif choice == '2':
+                TF = False
                 main_menu()
             else:
                 clear()
