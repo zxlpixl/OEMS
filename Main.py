@@ -1,7 +1,7 @@
 import time
 import os
 
-session_status = 'guest'
+session_status = 'admin'
 acc_name = None
 
 #start
@@ -516,7 +516,7 @@ Choice: '''
 2.Back to main menu
 
 Choice: '''
-        while True:
+    '''  while True:
             choice = input(event_menu)
             if choice == '1':
                 #CART FUNCTION
@@ -531,7 +531,7 @@ Choice: '''
 
 
 #cart_function
-def cart():
+def cart():'''
 
 
 
