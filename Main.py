@@ -399,7 +399,7 @@ def modify_event():
     event_list()
     choice_id = input("Which event would you like to modify?[ID]: ")
 
-    fhandler_read = open('event.txt','r')
+    fhandler_read = open('event.txt','r', 1)
     
     for line in fhandler_read:
         event_info = line.split(',')
@@ -436,17 +436,27 @@ Choice: '''
                 elif choice == 5:
                     new_category = 'General Entertainment'
                     break
+    
+    fhandler_read.close()
 
-    list_data = []
-    for line in fhandler_read:
-        print (line)
-        print (list_data)
-        if line[0] == choice_id:
 
-            updated_category = event_category.replace(event_category, new_category)
-            list_data.append(f'{event_id}, {updated_category}, {event_name}, {event_price}')
-        else:
-            list_data.append(line)
+    with open('event.txt') as fhandler_read:
+        
+    
+        list_data_temp = []         
+        list_data = fhandler_read.readlines()
+        for line in list_data:
+
+            if line.startswith(choice_id):
+                line = line.replace(event_category, new_category)
+            list_data_temp.append(line)
+        
+    with open('event.txt', 'w') as fhandler_write:
+        for line in list_data_temp:
+            fhandler_write.write(line)
+    
+        
+    
         
     
     #fhandler_read.close()

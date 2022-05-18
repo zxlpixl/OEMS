@@ -1,4 +1,4 @@
-1, Sports, test, 10
-2, Sports, sport, 1
+1, E-Sports, test, 10
+2, Technology, sport, 1
 3, Sports, sport1, 11
 4, Sports, sports, 10
