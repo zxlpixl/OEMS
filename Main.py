@@ -307,17 +307,14 @@ def category():
 4. Art
 5. General Entertainment
 6. Back to Main Menu
-7. Exit
 
 Choice: '''
     
     while True:
         answer = int(input(events))
         
-        if answer <= 7:
-            if answer == 7:
-                break
-            elif answer == 6:
+        if answer <= 6:
+            if answer == 6:
                 main_menu()
             else:
                 return answer
@@ -329,8 +326,7 @@ Choice: '''
             clear()
             time.sleep(0.75)
             continue
-    
-    exit()
+
     #asking user to choose category
 
 
