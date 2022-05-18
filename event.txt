@@ -1,2 +1,1 @@
-1, Sports, sports1, 69
-1, Sports, Sports5, 6969
+1, Sports, Badminton, 6969
