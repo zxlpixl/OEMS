@@ -387,6 +387,45 @@ def add_event():
         main_menu()
     
 
+#modify event function
+def modify_function():
+    
+    list_event()
+    choice_id = int(input("Which event would you like to modify?[ID]: "))
+
+    fhandler = open('test.txt','r')
+    for line in fhandler:
+        event_info = line.split(',')
+        event_id = event_info[0].strip()
+        event_category = event_info[1].strip()
+        event_name = event_info[2].strip()
+        event_price =  event_info[3].strip()
+
+
+        option = '''Options available:
+            1. Change event category
+            2. Change event name
+            3. Change event price
+            4. Delete event ''' 
+
+        if event_id == choice_id:
+            option_input = int(input(option))
+            if option_input == 1:
+                choice = category()
+                if choice == 1:
+                    new_category = 'Sports'
+                elif choice == 2:
+                    new_category = 'E-Sports'
+                elif choice == 3:
+                    new_category = 'Technology'
+                elif choice == 4:
+                    new_category = 'Art'
+                elif choice == 5:
+                    new_category = 'General Entertainment'
+            
+            fhandler = open('event.txt','w',1)
+            fhandler.write (str(new_category).replace(event_category,new_category))
+            fhandler.close
 
 
 #list event function
