@@ -68,7 +68,7 @@ Choice: '''
         menu ='''What would you like to do?
 
 1. Add New Event
-2. Modify Event #function to be created
+2. Modify Event 
 3. Event Information 
 4. Customer Records #function to be created
 5. Exit
@@ -79,7 +79,7 @@ Choice: '''
         if answer == 1:
             add_event()
         elif answer == 2:
-            acc_register()
+            modify_event()
         elif answer == 3:
             list_event()
         elif answer == 4:
@@ -388,12 +388,12 @@ def add_event():
     
 
 #modify event function
-def modify_function():
+def modify_event():
     
     list_event()
-    choice_id = int(input("Which event would you like to modify?[ID]: "))
+    choice_id = (input("Which event would you like to modify?[ID]: "))
 
-    fhandler = open('test.txt','r')
+    fhandler = open('event.txt','r')
     for line in fhandler:
         event_info = line.split(',')
         event_id = event_info[0].strip()
@@ -402,30 +402,30 @@ def modify_function():
         event_price =  event_info[3].strip()
 
 
-        option = '''Options available:
-            1. Change event category
-            2. Change event name
-            3. Change event price
-            4. Delete event ''' 
+    option = '''Options available:
+        1. Change event category
+        2. Change event name
+        3. Change event price
+        4. Delete event ''' 
 
-        if event_id == choice_id:
-            option_input = int(input(option))
-            if option_input == 1:
-                choice = category()
-                if choice == 1:
-                    new_category = 'Sports'
-                elif choice == 2:
-                    new_category = 'E-Sports'
-                elif choice == 3:
-                    new_category = 'Technology'
-                elif choice == 4:
-                    new_category = 'Art'
-                elif choice == 5:
-                    new_category = 'General Entertainment'
-            
-            fhandler = open('event.txt','w',1)
-            fhandler.write (str(new_category).replace(event_category,new_category))
-            fhandler.close
+    if event_id == choice_id:
+        option_input = int(input(option))
+        if option_input == 1:
+            choice = category()
+            if choice == 1:
+                new_category = 'Sports'
+            elif choice == 2:
+                new_category = 'E-Sports'
+            elif choice == 3:
+                new_category = 'Technology'
+            elif choice == 4:
+                new_category = 'Art'
+            elif choice == 5:
+                new_category = 'General Entertainment'
+        
+        fhandler = open('event.txt','w',1)
+        fhandler.write (str(new_category).replace(event_category,new_category))
+        fhandler.close
 
 
 #list event function
@@ -448,7 +448,7 @@ def list_event():
     if choice == 5:
         categoryid = 'General Entertainment'
 
-    
+    print('Category:',categoryid,'\n')
 
     for line in event_file:
         event_info = line.split(',')
@@ -457,7 +457,7 @@ def list_event():
         event_info_name = event_info[2].strip()
         event_info_price = event_info[3].strip()
         
-        print('Category:',categoryid,'\n')
+        
         if categoryid == event_info_category:
             print(f'ID:{event_info_id}          Event:{event_info_name}          Price:RM{event_info_price}')
 
@@ -497,7 +497,7 @@ Choice: '''
         while True:
             choice = input(event_menu)
             if choice == '1':
-                #MODIFY EVENT FUNCTION
+                modify_event()
             elif choice == '2':
                 main_menu()
             else:
