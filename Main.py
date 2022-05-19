@@ -454,7 +454,6 @@ Choice: '''
 
     with open('event.txt') as fhandler_read:
         
-    
         list_data_temp = []         
         list_data = fhandler_read.readlines()
         for line in list_data:
