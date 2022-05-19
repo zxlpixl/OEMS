@@ -436,9 +436,17 @@ Choice: '''
                 elif choice == 5:
                     new_category = 'General Entertainment'
                     break
-    
-    fhandler_read.close()
 
+            elif option_input == 2:
+                new_name = input('Please enter new event name: ')
+                break
+            
+            elif option_input == 3:
+                new_price = (input('Please enter new price[RM]: '))
+                break
+    
+
+    fhandler_read.close()
 
     with open('event.txt') as fhandler_read:
         
@@ -448,14 +456,25 @@ Choice: '''
         for line in list_data:
             
             if line.startswith(choice_id):
-                line = line.replace(event_category, new_category)
+                if option_input == 1:
+                    line = line.replace(event_category, new_category)
+                if option_input == 2:
+                    line = line.replace(event_name, new_name)
+                if option_input == 3:
+                    line = line.replace(event_price, new_price)
+                if option_input == 4:
+                    line = ""
             list_data_temp.append(line)
         
     with open('event.txt', 'w') as fhandler_write:
         for line in list_data_temp:
             fhandler_write.write(line)
-    
-    
+        
+
+
+        
+
+
     return
         
 
