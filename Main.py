@@ -395,7 +395,7 @@ def add_event():
 
 #modify event function
 def modify_event():
-    
+    TF = True
     event_list()
     choice_id = input("Which event would you like to modify?[ID]: ")
 
@@ -415,36 +415,40 @@ def modify_event():
 4. Delete event 
 
 Choice: '''
+        while TF == True:
 
-        if event_id == choice_id:
-            option_input = int(input(option))
-            if option_input == 1:
-                choice = category()
+            if event_id == choice_id:
+                option_input = int(input(option))
+                if option_input == 1:
+                    choice = category()
+                    
+                    if choice == 1:
+                        new_category = 'Sports'
+                        break
+                    elif choice == 2:
+                        new_category = 'E-Sports'
+                        break
+                    elif choice == 3:
+                        new_category = 'Technology'
+                        break
+                    elif choice == 4:
+                        new_category = 'Art'
+                        break
+                    elif choice == 5:
+                        new_category = 'General Entertainment'
+                        break
+
+                elif option_input == 2:
+                    new_name = input('Please enter new event name: ')
+                    break
                 
-                if choice == 1:
-                    new_category = 'Sports'
+                elif option_input == 3:
+                    new_price = (input('Please enter new price[RM]: '))
                     break
-                elif choice == 2:
-                    new_category = 'E-Sports'
-                    break
-                elif choice == 3:
-                    new_category = 'Technology'
-                    break
-                elif choice == 4:
-                    new_category = 'Art'
-                    break
-                elif choice == 5:
-                    new_category = 'General Entertainment'
-                    break
+                elif option_input not in range(1,5):
+                    print("Invalid option please try again!")
+                    continue
 
-            elif option_input == 2:
-                new_name = input('Please enter new event name: ')
-                break
-            
-            elif option_input == 3:
-                new_price = (input('Please enter new price[RM]: '))
-                break
-    
 
     fhandler_read.close()
 
