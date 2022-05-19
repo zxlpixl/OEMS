@@ -415,10 +415,12 @@ def modify_event():
 4. Delete event 
 
 Choice: '''
-        while TF == True:
+        if event_id == choice_id:
 
-            if event_id == choice_id:
+            while TF == True:
+
                 option_input = int(input(option))
+
                 if option_input == 1:
                     choice = category()
                     
@@ -445,6 +447,7 @@ Choice: '''
                 elif option_input == 3:
                     new_price = (input('Please enter new price[RM]: '))
                     break
+                
                 elif option_input not in range(1,5):
                     print("Invalid option please try again!")
                     continue
@@ -473,8 +476,11 @@ Choice: '''
         for line in list_data_temp:
             fhandler_write.write(line)
         
-
-
+    clear()
+    time.sleep(0.75)
+    print("Modified complete, redirecting to main menu......")
+    time.sleep(3)
+    main_menu()
         
 
 
