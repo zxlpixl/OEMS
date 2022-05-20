@@ -1,8 +1,9 @@
 import time
 import os
 
-session_status = 'admin'
+session_status = 'registered'
 acc_name = None
+
 
 #start
 def start():
@@ -506,6 +507,8 @@ def event_list():
     if choice == 5:
         categoryid = 'General Entertainment'
 
+    session_category = categoryid
+
     print('Category:',categoryid,'\n')
 
     for line in event_file:
@@ -531,13 +534,18 @@ def list_event_menu():
     if session_status == 'guest':
         event_menu = '''What would you like to do?
 
-1.Back to main menu
+1.Back to category menu
+2.Back to main menu
 
 Choice: '''
 
         while TF == True:
+            print('\n')
             choice = input(event_menu)
             if choice == '1':
+                TF = False
+                category()
+            elif choice == '3':
                 TF = False
                 main_menu()
             else:
@@ -551,16 +559,21 @@ Choice: '''
         event_menu = '''What would you like to do?
 
 1.Modify event records
-2.Back to main menu
+2.Back to category menu
+3.Back to main menu
 
 Choice: '''
 
         while TF == True:
+            print('\n')
             choice = input(event_menu)
             if choice == '1':
                 TF = False
                 modify_event()
             elif choice == '2':
+                TF = False
+                category()
+            elif choice == '3':
                 TF = False
                 main_menu()
             else:
@@ -574,15 +587,20 @@ Choice: '''
         event_menu = '''What would you like to do?
 
 1.Add events to cart
-2.Back to main menu
+2.Back to category menu
+3.Back to main menu
 
 Choice: '''
-    '''  while TF == True:
+        while TF == True:
+            print('\n')
             choice = input(event_menu)
             if choice == '1':
                 TF = False
-                #CART FUNCTION
+                cart()
             elif choice == '2':
+                TF = False
+                category()
+            elif choice == '3':
                 TF = False
                 main_menu()
             else:
@@ -594,7 +612,59 @@ Choice: '''
 
 
 #cart_function
-def cart():'''
+def cart():
+    clear()
+    time.sleep(0.75)
+    event_list()
+    print('\n')
+    TF = True
+
+    
+    while TF == True:
+        event_choice = input("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")
+        with open('event.txt', 'r') as event_file:
+            
+            event_file_read = event_file.readlines()
+
+            for item in event_file_read:
+                events = item.split(',')
+                
+                event_id = events[0].strip()
+                event_category = events[1].strip()
+                event_name = events[2].strip()
+                event_price = events[3].strip()
+
+                
+                if event_choice == event_id:
+                    with open('cart.txt', 'a', 1) as cart_file:
+                        event_info = [event_id, event_category, event_name, event_price]
+                        cart_file.write (str(event_info).strip('[]').replace("'", '') + '\n')
+                        clear()
+                        time.sleep(0.75)
+                        TF = False
+                        add_another_event = input('Event successfully added to cart, would you like to add another event? (y/n): ')
+                        if add_another_event == 'y' or add_another_event == 'Y':
+                            event_list()
+                        elif add_another_event == 'n' or add_another_event == 'N':
+                            clear()
+                            time.sleep(0.75)
+                            print('Sending you to main menu...')
+                            time.sleep(3)
+                            main_menu()
+
+                elif event_choice == 'n' or event_choice == 'N':
+                    TF = False
+                    print('Aborting...Sending you to main menu...')
+                    time.sleep(3)
+                    main_menu()
+                            
+
+
+
+
+
+
+
 
 
 
