@@ -97,8 +97,10 @@ Choice: '''
         menu ='''What would you like to do?
 
 1. Event Information 
-2. View Cart #function to be created
+2. View Cart
 3. Exit
+
+Attention: Please note that cart items will only remain for this session only. Cart items will be deleted on exit.
 
 Choice: '''
 
@@ -106,7 +108,7 @@ Choice: '''
         if answer == 1:
             list_event_menu()
         elif answer == 2:
-            print('placeholder')#view cart function here 
+            view_cart()
         elif answer == 3:
             quit()
        
@@ -660,6 +662,40 @@ def cart():
                             
 
 
+def view_cart():
+    clear()
+    time.sleep()
+    with open('cart.txt') as cart_file:
+        cart_file_read = cart_file.readlines()
+        total_price = 0
+        
+        for item in cart_file_read:
+            events = item.split(',')
+            event_id = events[0].strip()
+            event_category = events[1].strip()
+            event_name = events[2].strip()
+            event_price = events[3].strip()
+            total_price = total_price + int(event_price) 
+
+    print(f"{acc_name}'s cart.")
+    print(f'ID:{event_id}          Category:{event_category}          Event:{event_name}          Price:RM{event_price}')
+    print('\n')
+    print('Total Price:', total_price)
+
+    view_cart_menu = '''What would you like to do?
+
+1.Proceed to checkout
+2.Back to main menu
+
+Choice: '''
+
+    if view_cart_menu == '1':
+        print('placeholder')#Checkout function
+    elif view_cart_menu == '2':
+        print('Sending you to main menu...')
+        time.sleep(3)
+        main_menu()
+                            
 
 
 
