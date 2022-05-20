@@ -1,7 +1,7 @@
 import time
 import os
 
-session_status = 'registered'
+session_status = 'guest'
 acc_name = None
 
 
@@ -225,9 +225,11 @@ Choice: '''
 
 #account registration function
 def acc_register():
+    
     TF = True
     clear()
     time.sleep(0.75)
+    amount_spent = 0
 
     while TF == True:
         status = True
@@ -262,7 +264,7 @@ def acc_register():
         elif acc_password == confirmation:
             clear()
             time.sleep(0.75)
-            acc_info = [acc_name, acc_password]
+            acc_info = [acc_name, acc_password, amount_spent]
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
@@ -396,9 +398,10 @@ def add_event():
         main_menu()
     
 
+
+
 #modify event function
 def modify_event():
-    TF = True
     event_list()
     choice_id = input("Which event would you like to modify?[ID]: ")
 
@@ -449,10 +452,6 @@ Choice: '''
                 new_price = (input('Please enter new price[RM]: '))
                 break
 
-            elif option_input not in range(1,5):
-                print("Invalid option please try again!")
-                continue
-
 
     fhandler_read.close()
 
@@ -465,11 +464,11 @@ Choice: '''
             if line.startswith(choice_id):
                 if option_input == 1:
                     line = line.replace(event_category, new_category)
-                if option_input == 2:
+                elif option_input == 2:
                     line = line.replace(event_name, new_name)
-                if option_input == 3:
+                elif option_input == 3:
                     line = line.replace(event_price, new_price)
-                if option_input == 4:
+                elif option_input == 4:
                     line = ""
             list_data_temp.append(line)
         
@@ -489,6 +488,7 @@ Choice: '''
         
 
 
+
 #list event function
 def event_list():
     choice = category()
@@ -500,17 +500,16 @@ def event_list():
 
     if choice == 1:
         categoryid = 'Sports'
-    if choice == 2:
+    elif choice == 2:
         categoryid = 'E-Sports'
-    if choice == 3:
+    elif choice == 3:
         categoryid = 'Technology'
-    if choice == 4:
+    elif choice == 4:
         categoryid = 'Art'
-    if choice == 5:
+    elif choice == 5:
         categoryid = 'General Entertainment'
 
-    session_category = categoryid
-
+    
     print('Category:',categoryid,'\n')
 
     for line in event_file:
@@ -523,6 +522,8 @@ def event_list():
         
         if categoryid == event_info_category:
             print(f'ID:{event_info_id}          Event:{event_info_name}          Price:RM{event_info_price}')
+
+    return
 
 
 
@@ -547,7 +548,7 @@ Choice: '''
             if choice == '1':
                 TF = False
                 category()
-            elif choice == '3':
+            elif choice == '2':
                 TF = False
                 main_menu()
             else:
@@ -613,6 +614,8 @@ Choice: '''
                 continue
 
 
+
+
 #cart_function
 def cart():
     clear()
@@ -659,28 +662,47 @@ def cart():
                     print('Aborting...Sending you to main menu...')
                     time.sleep(3)
                     main_menu()
+
+    return
                             
 
 
-def view_cart():
-    clear()
-    time.sleep()
-    with open('cart.txt') as cart_file:
-        cart_file_read = cart_file.readlines()
-        total_price = 0
-        
-        for item in cart_file_read:
-            events = item.split(',')
-            event_id = events[0].strip()
-            event_category = events[1].strip()
-            event_name = events[2].strip()
-            event_price = events[3].strip()
-            total_price = total_price + int(event_price) 
 
-    print(f"{acc_name}'s cart.")
-    print(f'ID:{event_id}          Category:{event_category}          Event:{event_name}          Price:RM{event_price}')
+
+def view_cart():
+    global acc_name
+    clear()
+    time.sleep(0.75)
+    
+    try:
+        with open('cart.txt') as cart_file:
+            cart_file_read = cart_file.readlines()
+            total_price = 0
+            
+            print(f"{acc_name}'s cart.\n")
+            
+            
+            for item in cart_file_read:
+                events = item.split(',')
+                event_id = events[0].strip()
+                event_category = events[1].strip()
+                event_name = events[2].strip()
+                event_price = events[3].strip()
+                total_price = total_price + int(event_price) 
+
+                print(f'ID:{event_id}          Category:{event_category}          Event:{event_name}          Price:RM{event_price}')
+
+    except:
+        clear()
+        time.sleep(0.75)
+        print('No records in cart, redirecting to main menu...')
+        time.sleep(3)
+        main_menu()
+
+
+
     print('\n')
-    print('Total Price:', total_price)
+    print(f"Total Price: ${total_price}")
 
     view_cart_menu = '''What would you like to do?
 
@@ -688,14 +710,49 @@ def view_cart():
 2.Back to main menu
 
 Choice: '''
+    answer = input(view_cart_menu)
+    if answer == '1':
+        confirmation = input('Are you sure you would like to checkout all items? (y/n): ')
+        if confirmation == 'y' or confirmation == 'Y':
+            print('Processing...')
 
-    if view_cart_menu == '1':
-        print('placeholder')#Checkout function
-    elif view_cart_menu == '2':
+            
+            with open('account_info.txt') as fhandler_read:
+        
+                account_data_temp = []         
+                account_data = fhandler_read.readlines()
+                for account in account_data:
+                    accounts = account.split(',')
+                    account_name = accounts[0].strip()
+                    amount_spent = accounts[2].strip()
+                    new_total_price = str(total_price + int(amount_spent))
+                    
+                    if account_name == acc_name:
+                        account = account.replace(amount_spent, new_total_price)
+                        
+                    account_data_temp.append(account)
+                
+            
+            
+            with open('account_info.txt', 'w', 1) as fhandler_write:
+                for account in account_data_temp:
+                    fhandler_write.write(account)
+
+
+            print('Checkout complete, the bill will be sent to you by the end of the month, Thank you!')
+            print('Redirecting you to the main menu...')
+            main_menu()
+
+        elif confirmation == 'n' or confirmation == 'N':
+            view_cart()
+
+
+    elif answer == '2':
         print('Sending you to main menu...')
         time.sleep(3)
         main_menu()
-                            
+
+    return       
 
 
 
