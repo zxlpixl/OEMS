@@ -1,8 +1,246 @@
-#1
+FUNCTION start()
+
+    CALL FUNCTION clear()
+    PRINT ('OEMS is loading...')
+    sleeps for 3 seconds
+    PRINT ('Done!')
+    sleep for 1 second
+    CALL FUNCTION main_menu()
+
+ENDFUNCTION
+
+FUNCTION clear()
+
+    Using os module:
+        Clear terminal screen
+
+ENDFUNCTION
+
+
+FUNCTION quit()
+    CALL FUNCTION quit()
+ENDFUNCTION
+
+
+FUNCTION main_menu()
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
+
+    IF session status == 'guest' THEN
+
+        menu = ''Welcome to OEMS, The Online Event Management System!
+What would you like to do?
+
+1. Log In
+2. Register An Account
+3. Event Information
+4. Exit
+
+Choice: '''
+
+        PRINT (menu) 
+        Get answer
+        IF answer == 1 THEN
+            CALL FUNCTION log_in()
+        ELIF answer == 2 THEN
+            CALL FUNCTION acc_register()
+        ELIF answer == 3 THEN
+            CALL FUNCTION list_event_menu()
+        ELIF answer == 4 THEN
+            CALL FUNCTION quit()
+        ENDIF
+    
+    ELIF session_status == 'admin' THEN
+        PRINT(f'Welcome to the OEMS admin menu, {acc_name}')
+
+        menu ='''What would you like to do?
+
+1. Add New Event
+2. Modify Event 
+3. Event Information 
+4. Customer Records #function to be created
+5. Exit
+
+Choice: '''
+        
+        PRINT(menu)
+        Get answer
+
+        IF answer == 1 THEN
+            CALL FUNCTION add_event()
+        ELIF answer == 2 THEN
+            CALL FUNCTION modify_event()
+        ELIF answer == 3 THEN
+            CALL FUNCTION list_event_menu()
+        ELIF answer == 4 THEN
+            CALL FUNCTION customer_record()
+        ELIF answer == 5 THEN
+            CALL FUNCTION quit()
+        ENDIF
+    
+    ELIF session status == 'registered' THEN
+
+        PRINT (f'Welcome back {acc_name}!')
+        menu ='''What would you like to do?
+
+1. Event Information 
+2. View Cart #function to be created
+3. Exit
+
+Choice: '''
+ 
+        PRINT(menu)
+        Get answer
+        IF answer == 1 THEN
+            CALL FUNCTION list_event_menu()
+        ELIF answer == 2 THEN
+            CALL FUNCTION view_cart()
+        ELIF answer == 3 THEN
+            CALL FUCNTION quit()
+        ENDIF
+    
+    ENDIF
+ENDFUNCTION
+
+
+FUNCTION log_in()
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
+    Declare session_status, acc_name as Global variable
+    TF = True
+
+    DOWHILE TF == True 
+        OPEN account_info.txt in READ MODE with buffering set to 1
+        READ line of files as info_file
+
+        PRINT('OEMS Login')
+
+        PRINT('Please enter your username: ')
+        Get acc_name
+
+        FOR line In info_file  STEP 1
+            SPLIT line as acc_info with ',' as delimiter
+            STRIP acc_info with index of 0 as acc_info_name
+            STRIP acc_info with index of 1 as acc_info_password
+
+            IF acc_name == acc_info_name THEN
+
+                DOWHILE TF == True
+                    PRINT('Please enter your password')
+                    Get acc_password
+
+                    IF acc_password == acc_info_password THEN
+                        CALL FUNCTION clear()
+                        sleeps for 0.75 seconds
+                        PRINT(f'Logged in successfully. Welcome back {acc_name}.')
+
+                        sleeps for 0.75 seconds
+                        DOWHILE TF == True
+
+                            PRINT('Are you an admin? [y/n] ') 
+                            Get admin_confirmation
+
+                            IF admin_confirmation == 'y' or admin_confirmation == 'Y' THEN
+                                CALL FUNCTION clear()
+                                sleeps for 0.75 seconds
+
+                                DOWHILE TF == True
+
+                                    PRINT('Please enter admin code (use this code for testing purposes:000) \nCode: ')
+                                    Get admin_code
+
+                                    IF admin_code == 000 THEN
+                                        CALL FUNCTION clear()
+                                        sleeps for 0.75 seconds
+                                        PRINT('Thank you, redirecting you to the admin menu.....')
+                                        CLOSE info_file
+                                        session_status = 'admin'
+                                        TF = False
+                                        sleeps for 3 seconds
+                                        CALL FUNCTION main_menu()
+
+                                    ELSE
+                                        CALL FUNCTION clear()
+                                        sleeps for 0.75 seconds
+                                        PRINT('Admin code does not exist, please try again.')
+                                        CONTINUE
+                                    
+                                    ENDIF
+                                
+                                ENDWHILE
+                            
+                            ELIF admin_confirmation == 'n' or admin_confirmation == 'N' THEN 
+
+                                CALL FUNCTION clear()
+                                sleeps for 0.75 seconds
+                                PRINT('Redirecting you to the menu...')
+                                info_file.close
+                                session_status = 'registered'
+                                TF = False
+                                CALL FUNCTION main_menu()
+                            
+                            ElSE 
+                                PRINT("Answer not recognized, please try again.')
+                                CONTINUE 
+                            
+                            ENDIF
+                    
+                    ELSE
+                        CALL FUNCTION clear()
+                        sleeps for 0.75 seconds
+                        PRINT('OEMS Login')
+                        PRINT('Your password is incorrect, please try again.')
+                        CONTINUE
+                    
+                    ENDIF
+                
+                ENDWHILE
+                
+            ELSE 
+                CONTINUE
+
+            ENDIF
+        
+        ELSE
+            CALL FUNCTION clear()
+            sleeps for 0.75 seconds
+
+            log_in_retry = '''The entered username does not exist.
+What would you like to do?
+
+1. Retry
+2. Register new account
+3. Main menu
+
+Choice: ''' 
+
+            PRINT(log_in_retry)
+            Get log_in_retry
+            IF log_in_retry == '1' THEN
+                CALL FUNCTION clear()
+                sleeps for 0.75 seconds
+                CONTINUE
+            
+            ELIF log_in_retry == '2' THEN
+                CLOSE info_file
+                acc_name = None
+                CALL FUNCTION acc_register()  
+
+            ELIF log_in_retry =='3' THEN
+                CALL FUNCTION main_menu()  
+            ENDIF
+        
+        ENDFOR
+    
+    ENDWHILE
+
+ENDFUNCTION
+
+
 FUNCTION acc_register()
 
-    clear terminal 
-    0.75 seconds delay 
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds 
 
     DOWHILE True 
         status = True
@@ -20,10 +258,10 @@ FUNCTION acc_register()
         ENDFOR
         
         IF status = False THEN
-            clear terminal
+            CALL FUNCTION clear()
             PRINT("This username already exists, please use another username")
             3 seconds delay
-            clear terminal
+            CALL FUNCTION clear()
             CONTINUE 
         ENDIF
 
@@ -33,14 +271,14 @@ FUNCTION acc_register()
         Get confirmation
         
         IF acc_password != confirmation THEN 
-            clear terminal
-            0.75 seconds delay
+            CALL FUNCTION clear()
+            sleeps for 0.75 seconds
             PRINT("Incorrect password please try again")
             CONTINUE
         
         ELIF acc_password = confirmation THEN
-            clear terminal
-            0.75 seconds delay
+            CALL FUNCTION clear()
+            sleeps for 0.75 seconds
             acc_info = [acc_name, acc_password]
             OPEN account_info.txt in APPEND mode with buffering set to 1
             APPEND acc_info into file as fhandler
@@ -59,8 +297,8 @@ FUNCTION acc_register()
     3. Exit 
     Choice: '''
 
-    clear terminal
-    0.75 seconds delay
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
 
     DOWHILE True 
         PRINT(option)
@@ -86,8 +324,8 @@ ENDFUNCTION
 #2
 FUNCTION category()
 
-    clear terminal  
-    0.75 seconds delay
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
 
     events = '''Events Categories Available:
     
@@ -112,11 +350,11 @@ FUNCTION category()
             ENDIF
 
         ELSE
-            clear terminal
-            0.75 seconds delay
+            CALL FUNCTION clear()
+            sleeps for 0.75 seconds
             PRINT("Invalid option please try again.")
-            clear terminal
-            0.75 seconds delay
+            CALL FUNCTION clear()
+            sleeps for 0.75 seconds
             CONTINUE
 
         ENDIF
@@ -167,8 +405,8 @@ FUNCTION add_event()
             CONTINUE
         ENDIF
 
-        clear terminal 
-        0.75 seconds delay
+        CALL FUNCTION clear()
+        sleeps for 0.75 seconds
 
         PRINT('How much is the event?(RM): ')
         Get event_price
@@ -188,10 +426,10 @@ FUNCTION add_event()
         CLOSE fhandler
 
         clear terminal
-        0.75 seconds delay
+        sleeps for 0.75 seconds
         PRINT("Invalid option please try again.")
-        clear terminal 
-        0.75 seconds delay
+        CALL FUNCTION clear()
+        sleeps for 0.75 seconds
         CONTINUE
     
     ENDWHILE
