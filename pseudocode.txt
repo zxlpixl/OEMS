@@ -260,7 +260,7 @@ FUNCTION acc_register()
         IF status = False THEN
             CALL FUNCTION clear()
             PRINT("This username already exists, please use another username")
-            3 seconds delay
+            sleeps for 3 seconds
             CALL FUNCTION clear()
             CONTINUE 
         ENDIF
@@ -435,3 +435,227 @@ FUNCTION add_event()
     ENDWHILE
 
 ENDFUNCTION
+
+
+FUNCTION modify_event()
+    CALL FUNCTION event_list()
+    PRINT("Which event would you like to modify?[ID]: ")
+    Get choice_id
+
+    OPEN event.txt in READ mode with buffering set to 1
+    READ line in file as fhandler_read
+
+    FOR line IN fhandler_read STEP 1
+        SPLIT line as event_info with ',' as delimiter
+        STRIP event_info with index of 0 as event_id
+        STRIP event_info with index of 1 as event_category
+        STRIP event_info with index of 2 as event_name
+        STRIP event_info with index of 3 as event_price
+
+        option = '''Options available:
+1. Change event category
+2. Change event name
+3. Change event price
+4. Delete event 
+
+Choice: '''
+        
+        IF event_id == choice_id THEN
+
+            PRINT(option)
+            Get option_input
+
+            IF option_input == 1 THEN
+                choice = CALL FUNCTION category()
+
+                IF choice == 1 THEN
+                    new_category = 'Sports'
+                    BREAK
+                ELIF choice == 2 THEN
+                    new_category = 'E-Sports'
+                    BREAK
+                ELIF choice == 3 THEN
+                    new_category = 'Technology'
+                    BREAK
+                ELIF choice == 4 THEN
+                    new_category = 'Art'
+                    BREAK
+                ELIF choice == 5 THEN
+                    new_category = 'General Entertainment'
+                    BREAK
+                ENDIF
+            
+            ELIF option_input == 2 THEN
+                new_name = input('Please enter new event name: ')
+                break
+            
+            ELIF option_input == 3 THEN
+                new_price = (input('Please enter new price[RM]: '))
+                break
+
+            ENDIF
+        
+        ENDIF
+    
+    ENDFOR
+
+    CLOSE fhandler_read
+
+    WITH OPEN event.txt in READ mode as fhandler_read
+
+        list_data_temp = []
+        readlines in fhandler_read as list_data
+        
+        FOR line in list_data
+
+            IF line STARTS WITH choice_id THEN
+                
+                IF option_input == 1 THEN
+                        line = replace event_category with new_category in line
+                ELIF option_input == 2 THEN
+                        line = replace event_name with new_name in line
+                ELIF option_input == 3 THEN
+                        line = replace event_price with new_price in line
+                ELIF option_input == 4 THEN
+                        line = replace line with ""
+                ENDIF
+
+            ENDIF
+            
+            APPEND line into list_data_temp
+
+        ENDFOR
+
+    WITH OPEN event.text in WRITE mode as fhandler_write 
+
+        FOR line in list_data_temp
+            WRITE line in fhandler_write
+
+        ENDFOR
+
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
+    PRINT("Modified complete, redirecting to main menu......")
+    sleeps for 3 seconds
+    CALL FUNCTION main_menu()
+
+
+    RETURN
+
+ENDFUNCITON
+
+
+FUNCTION event_list()
+    choice = CALL FUNCTION category()
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
+
+    OPEN event.txt in READ mode 
+    READ line in file as event_file
+
+    IF choice == 1 THEN
+        categoryid = 'Sports'
+    ELIF choice == 2 THEN
+        categoryid = 'E-Sports'
+    ELIF choice == 3 THEN
+        categoryid = 'Technology'
+    ELIF choice == 4 THEN
+        categoryid = 'Art'
+    ELIF choice == 5 THEN
+        categoryid = 'General Entertainment'
+    ENDIF
+
+    PRINT('Category: ', categoryid, '\n')
+
+    FOR line in event_file 
+        SPLIT line as event_info with ',' as delimiter
+        STRIP event_info with index of 0 as event_info_id
+        STRIP event_info with index of 1 as event_info_category
+        STRIP event_info with index of 2 as event_info_name
+        STRIP event_info with index of 3 as event_info_price
+
+        IF categoryid == event_info_category THEN
+            PRINT(f'ID:{event_info_id}          Event:{event_info_name}          Price:RM{event_info_price}')
+        ENDIF
+    ENDFOR
+
+ENDFUNCTION
+
+
+
+FUNCTION list_event_menu()
+    CALL FUNCTION event_list()
+
+    DECLARE session_status as Global variable
+
+    TF = True
+    IF session status == 'guest' THEN
+        event_menu = ''What would you like to do?
+
+1.Back to category menu
+2.Back to main menu
+
+Choice: '''
+
+        DOWHILE TF == True
+            PRINT('\n')
+            PRINT(event_menu)
+            Get choice
+            
+            IF choice == '1' THEN
+                TF = False
+                CALL FUNCTION category()
+            ELIF choice == '2' THEN
+                TF = False
+                CALL FUNCTION main_menu()
+            ELSE
+                CALL FUNCTION clear()
+                PRINT('Invalid choice, please try again.')
+                sleeps for 3 seconds
+                CALL FUNCTION clear()
+                CONTINUE
+            ENDIF
+        
+        ENDWHILE
+
+    ELIF session_status == 'registered' THEN
+        event_menu = '''What would you like to do?
+
+1.Add events to cart
+2.Back to category menu
+3.Back to main menu
+
+Choice: '''
+
+        DOWHILE TF == True 
+            PRINT('\n')
+            PRINT(event_menu)
+
+            IF choice == '1' THEN
+                TF = False
+                CALL FUNCTION cart()
+            ELIF choice == '2' THEN
+                TF = False
+                CALL FUNCTION category()
+            ELIF choice == '3' THEN
+                TF = False
+                CALL FUNCTION main_menu()
+            ELSE
+                CALL FUNCTION clear()
+                PRINT('Invalid choice, please try again.')
+                sleeps for 3 seconds
+                CALL FUNCTION clear()
+                CONTINUE
+            ENDIF
+            
+        ENDWHILE
+
+    ENDIF
+
+ENDFUNCTION  
+
+
+
+                
+      
+            
