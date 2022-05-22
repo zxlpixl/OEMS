@@ -18,12 +18,6 @@ FUNCTION clear()
 ENDFUNCTION
 
 
-FUNCTION quit()
-    CALL FUNCTION quit()
-
-ENDFUNCTION
-
-
 FUNCTION main_menu()
 
     CALL FUNCTION clear()
