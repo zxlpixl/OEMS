@@ -1,4 +1,6 @@
-1, Sports, master bed, 69
+1, Sports, masterbed, 69
 2, E-Sports, valo, 420
 3, Technology, PS69 release, 6900
 4, E-Sports, minecraft, 69
+5, Sports, ten is, 0
+6, Sports, badminton, 20

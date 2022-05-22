@@ -1,7 +1,6 @@
 import time
 import os
 
-from requests import session
 
 session_status = 'guest'
 acc_name = None
@@ -61,6 +60,7 @@ Choice: '''
             list_event_menu()
             return
         elif answer == 4:
+            clear()
             quit()
 
 
@@ -96,6 +96,7 @@ Choice: '''
             log_out()
             return
         elif answer == 6:
+            clear()
             quit()
 
 
@@ -130,6 +131,7 @@ Choice: '''
             log_out()
             return
         elif answer == 5:
+            clear()
             quit()
        
         
@@ -290,7 +292,7 @@ def acc_register():
             clear()
             continue
             #checking name availability  
-        
+        payment_card = input('Please enter your credit/debit card number [****-****-****-****]: ')
         acc_password = input('Please enter your password: ')
         confirmation = input('Please confirm your password: ')
 
@@ -304,7 +306,7 @@ def acc_register():
         elif acc_password == confirmation:
             clear()
             time.sleep(0.75)
-            acc_info = [acc_name, acc_password, amount_spent]
+            acc_info = [acc_name, acc_password, amount_spent, payment_card]
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
@@ -319,7 +321,7 @@ def acc_register():
 2. Log In
 3. Exit 
         
-    Choice: '''
+Choice: '''
     #options for user
     clear()
     time.sleep(0.75)
@@ -335,6 +337,7 @@ def acc_register():
             log_in()
             return
         elif choice == 3:
+            clear()
             quit()
         else:
             print("Invalid option please try again")
@@ -446,6 +449,7 @@ def add_event():
 #modify event function
 def modify_event():
     event_list()
+    print('\n')
     choice_id = input("Which event would you like to modify?[ID]: ")
 
     fhandler_read = open('event.txt','r', 1)
@@ -457,11 +461,15 @@ def modify_event():
         event_name = event_info[2].strip()
         event_price =  event_info[3].strip()
         
+        clear()
+        time.sleep(0.75)
         option = '''Options available:
+
 1. Change event category
 2. Change event name
 3. Change event price
 4. Delete event 
+5. Cancel
 
 Choice: '''
         if event_id == choice_id:
@@ -494,6 +502,10 @@ Choice: '''
             elif option_input == 3:
                 new_price = (input('Please enter new price[RM]: '))
                 break
+
+            elif option_input == 5:
+                main_menu()
+                return
 
 
     fhandler_read.close()
@@ -571,91 +583,33 @@ def event_list():
 def list_event_menu():
     event_list()
 
-    global session_status
 
     TF = True
-    if session_status == 'guest':
-        event_menu = '''What would you like to do?
+    
+    event_menu = '''What would you like to do?
 
 1.Back to category menu
 2.Back to main menu
 
 Choice: '''
 
-        while TF == True:
-            print('\n')
-            choice = input(event_menu)
-            if choice == '1':
-                TF = False
-                category()
-                return
-            elif choice == '2':
-                TF = False
-                main_menu()
-                return
-            else:
-                clear()
-                print('Invalid choice, please try again.')
-                time.sleep(3)
-                clear()
-                continue
+    while TF == True:
+        print('\n')
+        choice = input(event_menu)
+        if choice == '1':
+            list_event_menu()
+            return
+        elif choice == '2':
+            TF = False
+            main_menu()
+            return
+        else:
+            clear()
+            print('Invalid choice, please try again.')
+            time.sleep(3)
+            clear()
+            continue
 
-    if session_status == 'admin':
-        event_menu = '''What would you like to do?
-
-1.Modify event records
-2.Back to category menu
-3.Back to main menu
-
-Choice: '''
-
-        while TF == True:
-            print('\n')
-            choice = input(event_menu)
-            if choice == '1':
-                TF = False
-                modify_event()
-                return
-            elif choice == '2':
-                TF = False
-                category()
-                return
-            elif choice == '3':
-                TF = False
-                main_menu()
-                return
-            else:
-                clear()
-                print('Invalid choice, please try again.')
-                time.sleep(3)
-                clear()
-                continue
-
-    if session_status == 'registered':
-        event_menu = '''What would you like to do?
-
-1.Back to category menu
-2.Back to main menu
-
-Choice: '''
-        while TF == True:
-            print('\n')
-            choice = input(event_menu)
-            
-            if choice == '1':
-                TF = False
-                category()
-                return
-            elif choice == '2':
-                TF = False
-                main_menu()
-                return
-            else:
-                clear()
-                print('Invalid choice, please try again.')
-                time.sleep(3)
-                clear()
-                continue
     return
 
 
@@ -670,6 +624,7 @@ def cart():
 
     
     while TF == True:
+        print('\n')
         event_choice = input("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")
         with open('event.txt', 'r') as event_file:
             
@@ -748,7 +703,7 @@ def view_cart():
 
 
     print('\n')
-    print(f"Total Price: ${total_price}")
+    print(f"Total Price: RM{total_price}")
 
     view_cart_menu = '''What would you like to do?
 
@@ -789,7 +744,7 @@ Choice: '''
 
             clear()
             time.sleep(0.75)
-            print('Checkout complete, the bill will be sent to you by the end of the month, Thank you!')
+            print('Purchase complete, the receipt will be sent to you by the end of the month, Thank you!')
             time.sleep(3)
             clear()
             print('Redirecting you to the main menu...')
@@ -816,7 +771,7 @@ def customer_records():
     clear()
     time.sleep(0.75)
     TF = True
-
+    print('Customer records\n')
     with open('account_info.txt') as fhandler:
         accounts = fhandler.readlines()
         for item in accounts:
@@ -847,6 +802,7 @@ Choice: '''
             return
 
         else:
+            print('\n')
             print('Invalid option, please try again.')
             time.sleep(0.75)
             continue
