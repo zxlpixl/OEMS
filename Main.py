@@ -1,6 +1,8 @@
 import time
 import os
 
+from requests import session
+
 session_status = 'guest'
 acc_name = None
 
@@ -72,7 +74,8 @@ Choice: '''
 2. Modify Event 
 3. View Event Information 
 4. Customer Records 
-5. Exit
+5. Logout
+6. Exit
 
 Choice: '''
 
@@ -90,6 +93,9 @@ Choice: '''
             customer_records()
             return
         elif answer == 5:
+            log_out()
+            return
+        elif answer == 6:
             quit()
 
 
@@ -103,7 +109,8 @@ Choice: '''
 1. View Event Information
 2. Add Events to cart
 3. View Cart
-4. Exit
+4. Log Out
+5. Exit
 
 Attention: Please note that cart items will only remain for this session only. Cart items will be deleted on exit.
 
@@ -120,6 +127,9 @@ Choice: '''
             view_cart()
             return
         elif answer == 4:
+            log_out()
+            return
+        elif answer == 5:
             quit()
        
         
@@ -235,6 +245,21 @@ Choice: '''
                 return
     
     return
+
+
+
+def log_out():
+    clear()
+    time.sleep(0.75)
+    global session_status
+    global acc_name
+    session_status = 'guest'
+    acc_name = None
+    print('Logging out...')
+    time.sleep(3)
+    main_menu()
+    return
+
 
 
 
@@ -391,9 +416,7 @@ def add_event():
             print("Event exists please try again")
             continue
 
-        clear()
-        time.sleep(0.75)
-
+        
         event_price = int(input('How much is the event?(RM): '))
         #asking for name and price
 
@@ -761,6 +784,9 @@ Choice: '''
                 for account in account_data_temp:
                     fhandler_write.write(account)
 
+            cartfile = open('cart.txt', 'w', 1)
+            cartfile.close()
+
             clear()
             time.sleep(0.75)
             print('Checkout complete, the bill will be sent to you by the end of the month, Thank you!')
@@ -782,6 +808,7 @@ Choice: '''
         main_menu()
         return
     return       
+
 
 
 
