@@ -68,13 +68,8 @@ Choice: '''
 
 1. Add New Event
 2. Modify Event 
-<<<<<<< HEAD
-3. Event Information 
-4. Customer Records 
-=======
 3. View Event Information 
 4. Customer Records #function to be created
->>>>>>> b5ba14d8b9eb225679722856cedf7094656e6066
 5. Exit
 
 Choice: '''
