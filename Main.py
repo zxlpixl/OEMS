@@ -41,7 +41,7 @@ What would you like to do?
 
 1. Log In
 2. Register An Account
-3. Event Information
+3. View Event Information
 4. Exit
 
 Choice: '''
@@ -68,8 +68,13 @@ Choice: '''
 
 1. Add New Event
 2. Modify Event 
+<<<<<<< HEAD
 3. Event Information 
 4. Customer Records 
+=======
+3. View Event Information 
+4. Customer Records #function to be created
+>>>>>>> b5ba14d8b9eb225679722856cedf7094656e6066
 5. Exit
 
 Choice: '''
@@ -98,7 +103,7 @@ Choice: '''
         
         menu ='''What would you like to do?
 
-1. Event Information 
+1. View Event Information 
 2. View Cart
 3. Exit
 
