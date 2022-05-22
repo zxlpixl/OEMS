@@ -9,6 +9,8 @@ acc_name = None
 def start():
     clear()
     print('OEMS is loading...')
+    cartfile = open('cart.txt', 'w', 1)
+    cartfile.close()
     time.sleep(3)
     print('Done!')
     time.sleep(1)
@@ -41,7 +43,7 @@ What would you like to do?
 
 1. Log In
 2. Register An Account
-3. View Event Information
+3. Event Information
 4. Exit
 
 Choice: '''
@@ -68,13 +70,8 @@ Choice: '''
 
 1. Add New Event
 2. Modify Event 
-<<<<<<< HEAD
 3. Event Information 
 4. Customer Records 
-=======
-3. View Event Information 
-4. Customer Records #function to be created
->>>>>>> b5ba14d8b9eb225679722856cedf7094656e6066
 5. Exit
 
 Choice: '''
@@ -103,9 +100,10 @@ Choice: '''
         
         menu ='''What would you like to do?
 
-1. View Event Information 
-2. View Cart
-3. Exit
+1. View Event Information
+2. Add Events to cart
+3. View Cart
+4. Exit
 
 Attention: Please note that cart items will only remain for this session only. Cart items will be deleted on exit.
 
@@ -116,9 +114,12 @@ Choice: '''
             list_event_menu()
             return
         elif answer == 2:
-            view_cart()
+            cart()
             return
         elif answer == 3:
+            view_cart()
+            return
+        elif answer == 4:
             quit()
        
         
@@ -610,23 +611,19 @@ Choice: '''
     if session_status == 'registered':
         event_menu = '''What would you like to do?
 
-1.Add events to cart
-2.Back to category menu
-3.Back to main menu
+1.Back to category menu
+2.Back to main menu
 
 Choice: '''
         while TF == True:
             print('\n')
             choice = input(event_menu)
+            
             if choice == '1':
-                TF = False
-                cart()
-                return
-            elif choice == '2':
                 TF = False
                 category()
                 return
-            elif choice == '3':
+            elif choice == '2':
                 TF = False
                 main_menu()
                 return
@@ -764,9 +761,13 @@ Choice: '''
                 for account in account_data_temp:
                     fhandler_write.write(account)
 
-
+            clear()
+            time.sleep(0.75)
             print('Checkout complete, the bill will be sent to you by the end of the month, Thank you!')
+            time.sleep(3)
+            clear()
             print('Redirecting you to the main menu...')
+            time.sleep(3)
             main_menu()
             return
 
