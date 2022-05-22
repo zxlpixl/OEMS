@@ -29,14 +29,14 @@ FUNCTION main_menu()
     IF session status == 'guest' THEN
 
         menu = ''Welcome to OEMS, The Online Event Management System!
-What would you like to do?
+    What would you like to do?
 
-1. Log In
-2. Register An Account
-3. Event Information
-4. Exit
+    1. Log In
+    2. Register An Account
+    3. Event Information
+    4. Exit
 
-Choice: '''
+    Choice: '''
 
         PRINT (menu) 
         Get answer
@@ -55,13 +55,13 @@ Choice: '''
 
         menu ='''What would you like to do?
 
-1. Add New Event
-2. Modify Event 
-3. Event Information 
-4. Customer Records #function to be created
-5. Exit
+    1. Add New Event
+    2. Modify Event 
+    3. Event Information 
+    4. Customer Records #function to be created
+    5. Exit
 
-Choice: '''
+    Choice: '''
         
         PRINT(menu)
         Get answer
@@ -83,11 +83,11 @@ Choice: '''
         PRINT (f'Welcome back {acc_name}!')
         menu ='''What would you like to do?
 
-1. Event Information 
-2. View Cart #function to be created
-3. Exit
+    1. Event Information 
+    2. View Cart #function to be created
+    3. Exit
 
-Choice: '''
+    Choice: '''
  
         PRINT(menu)
         Get answer
@@ -206,13 +206,13 @@ FUNCTION log_in()
             sleeps for 0.75 seconds
 
             log_in_retry = '''The entered username does not exist.
-What would you like to do?
+    What would you like to do?
 
-1. Retry
-2. Register new account
-3. Main menu
+    1. Retry
+    2. Register new account
+    3. Main menu
 
-Choice: ''' 
+    Choice: ''' 
 
             PRINT(log_in_retry)
             Get log_in_retry
@@ -321,7 +321,6 @@ ENDFUNCTION
     
 
 
-#2
 FUNCTION category()
 
     CALL FUNCTION clear()
@@ -365,8 +364,6 @@ ENDFUNCTION
 
 
 
-
-#3 
 FUNCTION add_event()
 
     choice = CALL FUNCTION category()
@@ -453,12 +450,12 @@ FUNCTION modify_event()
         STRIP event_info with index of 3 as event_price
 
         option = '''Options available:
-1. Change event category
-2. Change event name
-3. Change event price
-4. Delete event 
+    1. Change event category
+    2. Change event name
+    3. Change event price
+    4. Delete event 
 
-Choice: '''
+    Choice: '''
         
         IF event_id == choice_id THEN
 
@@ -592,10 +589,10 @@ FUNCTION list_event_menu()
     IF session status == 'guest' THEN
         event_menu = ''What would you like to do?
 
-1.Back to category menu
-2.Back to main menu
+    1.Back to category menu
+    2.Back to main menu
 
-Choice: '''
+    Choice: '''
 
         DOWHILE TF == True
             PRINT('\n')
@@ -621,11 +618,11 @@ Choice: '''
     ELIF session_status == 'registered' THEN
         event_menu = '''What would you like to do?
 
-1.Add events to cart
-2.Back to category menu
-3.Back to main menu
+    1.Add events to cart
+    2.Back to category menu
+    3.Back to main menu
 
-Choice: '''
+    Choice: '''
 
         DOWHILE TF == True 
             PRINT('\n')
