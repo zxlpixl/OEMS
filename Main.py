@@ -13,6 +13,7 @@ def start():
     print('Done!')
     time.sleep(1)
     main_menu()
+    return
 
 
 
@@ -24,12 +25,6 @@ def clear():
     else:
         os.system('clear')
 
-
-
-
-#exit program
-def quit():
-    quit
 
 
 
@@ -54,10 +49,13 @@ Choice: '''
         answer = int(input(menu))
         if answer == 1:
             log_in()
+            return
         elif answer == 2:
             acc_register()
+            return
         elif answer == 3:
-             list_event_menu()
+            list_event_menu()
+            return
         elif answer == 4:
             quit()
 
@@ -71,7 +69,7 @@ Choice: '''
 1. Add New Event
 2. Modify Event 
 3. Event Information 
-4. Customer Records #function to be created
+4. Customer Records 
 5. Exit
 
 Choice: '''
@@ -79,12 +77,16 @@ Choice: '''
         answer = int(input(menu))
         if answer == 1:
             add_event()
+            return
         elif answer == 2:
             modify_event()
+            return
         elif answer == 3:
             list_event_menu()
+            return
         elif answer == 4:
-            quit()
+            customer_records()
+            return
         elif answer == 5:
             quit()
 
@@ -107,8 +109,10 @@ Choice: '''
         answer = int(input(menu))
         if answer == 1:
             list_event_menu()
+            return
         elif answer == 2:
             view_cart()
+            return
         elif answer == 3:
             quit()
        
@@ -165,6 +169,7 @@ def log_in():
                                         TF = False
                                         time.sleep(3)
                                         main_menu()
+                                        return
                                                                            
                                     else:
                                         clear()
@@ -180,6 +185,7 @@ def log_in():
                                 session_status = 'registered'
                                 TF = False
                                 main_menu()
+                                return
 
                             else:
                                 print('Answer not recognized, please try again.')
@@ -215,11 +221,14 @@ Choice: '''
             elif log_in_retry == '2':
                 info_file.close
                 acc_name = None
-                acc_register()  
+                acc_register()
+                return  
 
             elif log_in_retry =='3':
                 main_menu()                     
-
+                return
+    
+    return
 
 
 
@@ -289,9 +298,11 @@ def acc_register():
         if choice == 1:
             TF = False
             main_menu()
+            return
         elif choice == 2:
             TF = False
             log_in()
+            return
         elif choice == 3:
             quit()
         else:
@@ -325,6 +336,7 @@ Choice: '''
             if answer == 6:
                 TF = False
                 main_menu()
+                return
             else:
                 return answer
         
@@ -396,6 +408,8 @@ def add_event():
         time.sleep(3)
         TF == False
         main_menu()
+        return
+    return
     
 
 
@@ -481,9 +495,6 @@ Choice: '''
     print("Modified complete, redirecting to main menu......")
     time.sleep(3)
     main_menu()
-        
-
-
     return
         
 
@@ -523,7 +534,7 @@ def event_list():
         if categoryid == event_info_category:
             print(f'ID:{event_info_id}          Event:{event_info_name}          Price:RM{event_info_price}')
 
-    return
+    
 
 
 
@@ -548,9 +559,11 @@ Choice: '''
             if choice == '1':
                 TF = False
                 category()
+                return
             elif choice == '2':
                 TF = False
                 main_menu()
+                return
             else:
                 clear()
                 print('Invalid choice, please try again.')
@@ -573,12 +586,15 @@ Choice: '''
             if choice == '1':
                 TF = False
                 modify_event()
+                return
             elif choice == '2':
                 TF = False
                 category()
+                return
             elif choice == '3':
                 TF = False
                 main_menu()
+                return
             else:
                 clear()
                 print('Invalid choice, please try again.')
@@ -600,19 +616,22 @@ Choice: '''
             if choice == '1':
                 TF = False
                 cart()
+                return
             elif choice == '2':
                 TF = False
                 category()
+                return
             elif choice == '3':
                 TF = False
                 main_menu()
+                return
             else:
                 clear()
                 print('Invalid choice, please try again.')
                 time.sleep(3)
                 clear()
                 continue
-
+    return
 
 
 
@@ -646,23 +665,24 @@ def cart():
                         cart_file.write (str(event_info).strip('[]').replace("'", '') + '\n')
                         clear()
                         time.sleep(0.75)
-                        TF = False
                         add_another_event = input('Event successfully added to cart, would you like to add another event? (y/n): ')
                         if add_another_event == 'y' or add_another_event == 'Y':
                             event_list()
+                            continue
                         elif add_another_event == 'n' or add_another_event == 'N':
                             clear()
                             time.sleep(0.75)
                             print('Sending you to main menu...')
                             time.sleep(3)
                             main_menu()
+                            return
 
                 elif event_choice == 'n' or event_choice == 'N':
                     TF = False
                     print('Aborting...Sending you to main menu...')
                     time.sleep(3)
                     main_menu()
-
+                    return
     return
                             
 
@@ -698,6 +718,7 @@ def view_cart():
         print('No records in cart, redirecting to main menu...')
         time.sleep(3)
         main_menu()
+        return
 
 
 
@@ -742,20 +763,60 @@ Choice: '''
             print('Checkout complete, the bill will be sent to you by the end of the month, Thank you!')
             print('Redirecting you to the main menu...')
             main_menu()
+            return
 
         elif confirmation == 'n' or confirmation == 'N':
             view_cart()
+            return
 
 
     elif answer == '2':
         print('Sending you to main menu...')
         time.sleep(3)
         main_menu()
-        
+        return
     return       
 
 
 
+def customer_records():
+    clear()
+    time.sleep(0.75)
+    TF = True
+
+    with open('account_info.txt') as fhandler:
+        accounts = fhandler.readlines()
+        for item in accounts:
+            account = item.split(',')
+            account_name = account[0].strip()
+            ammount_spent = account[2].strip()
+
+            print(f'Username:{account_name}          Ammount spent:{ammount_spent}')
+
+    menu = '''What would you like to do?
+    
+1.Back to main menu
+
+Choice: '''
+
+
+    while TF == True:
+
+        option = input(menu)
+
+        if option == '1':
+            clear()
+            time.sleep(0.75)
+            print('Sending you back to the main menu...')
+            time.sleep(3)
+            TF = False
+            main_menu()
+            return
+
+        else:
+            print('Invalid option, please try again.')
+            time.sleep(0.75)
+            continue
 
 
 
@@ -765,7 +826,7 @@ Choice: '''
 
 
 
-
+ 
 
 
 
