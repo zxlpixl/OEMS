@@ -653,6 +653,71 @@ FUNCTION list_event_menu()
 ENDFUNCTION  
 
 
+FUNCTION cart()
+    CALL FUNCTION clear
+    sleeps for 0.75 seconds
+    CALL FUNCTION event_list()
+    PRINT('\n')
+    TF = True
+
+
+    DOWHILE TF == True
+        PRINT("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")   
+        Get event_choice
+
+        WITH OPEN event.txt in READ mode as event_file
+
+            readlines in event_file as event_file_read
+
+            FOR item in event_file_read
+                SPLIT item as events with (',') as delimiter
+
+                STRIP events with index of 0 as event_id
+                STRIP events with index of 1 as event_category
+                STRIP events with index of 2 as event_name
+                STRIP events with index of 3 as event_price
+
+                IF event_choice == event_id THEN
+                    WITH OPEN cart.txt in APPEND mode with buffering set to 1 as cart_file
+                        event_info = [event_id, event_category, event_name, event_price]
+                        APPEND event_info into cart_file
+                        CALL FUNCTION clear()
+                        sleeps for 0.75 seconds
+                        TF = False
+                        
+                        PRINT('Event successfully added to cart, would you like to add another event? (y/n): ')
+                        Get add_another_event
+
+                        IF add_another_event == 'y' or add_another_event == 'Y' THEN
+                            CALL FUNCTION event_list()
+                        ELIF add_another_event == 'n' or add_another_event == 'N' THEN
+                            CALL FUNCTION clear()
+                            sleeps for 0.75 seconds
+                            PRINT('Sending you to main menu...')
+                            sleeps for 3 seconds
+                            CALL FUNCTION main_menu()
+                        ENDIF
+
+                ELIF event_choice == 'n' or event_choice == 'N' THEN
+                    TF = False
+                    PRINT('Aborting...Sending you to main menu...')
+                    sleeps for 3 seconds
+                    CALL FUNCTION main_menu()
+
+                ENDIF    
+
+            ENDFOR
+
+    ENDWHILE
+
+    RETURN
+
+ENDFUNTION
+
+
+
+
+
 
 
 
