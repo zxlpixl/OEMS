@@ -9,6 +9,7 @@ FUNCTION start()
 
 ENDFUNCTION
 
+
 FUNCTION clear()
 
     Using os module:
@@ -19,10 +20,12 @@ ENDFUNCTION
 
 FUNCTION quit()
     CALL FUNCTION quit()
+
 ENDFUNCTION
 
 
 FUNCTION main_menu()
+
     CALL FUNCTION clear()
     sleeps for 0.75 seconds
 
@@ -100,6 +103,7 @@ FUNCTION main_menu()
         ENDIF
     
     ENDIF
+
 ENDFUNCTION
 
 
@@ -320,7 +324,6 @@ FUNCTION acc_register()
 ENDFUNCTION       
     
 
-
 FUNCTION category()
 
     CALL FUNCTION clear()
@@ -361,7 +364,6 @@ FUNCTION category()
     ENDWHILE
 
 ENDFUNCTION
-
 
 
 FUNCTION add_event()
@@ -579,7 +581,6 @@ FUNCTION event_list()
 ENDFUNCTION
 
 
-
 FUNCTION list_event_menu()
     CALL FUNCTION event_list()
 
@@ -650,6 +651,8 @@ FUNCTION list_event_menu()
     ENDIF
 
 ENDFUNCTION  
+
+
 
 
 
