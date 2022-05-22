@@ -709,7 +709,16 @@ FUNCTION cart()
 ENDFUNTION
 
 
+FUNCTION view_cart()
+    Declare acc_name as Global variable
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
 
+    TRY 
+        WITH OPEN cart.txt
+
+
+ENDFUNCTION
 
 
 
