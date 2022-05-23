@@ -54,30 +54,31 @@ Choice: '''
         while TF == True:
             try:
                 answer = int(input(menu))
-                if answer == 1:
-                    log_in()
-                    return
-                elif answer == 2:
-                    acc_register()
-                    return
-                elif answer == 3:
-                    list_event_menu()
-                    return
-                elif answer == 4:
-                    clear()
-                    quit()
-                else:
-                    print('Invalid option, please try again.')
-                    time.sleep(0.75)
-                    clear()
-                    continue
-                    
             except:
                 print('Invalid option, please try again.')
                 time.sleep(0.75)
                 clear()
                 continue
 
+            if answer == 1:
+                log_in()
+                return
+            elif answer == 2:
+                acc_register()
+                return
+            elif answer == 3:
+                list_event_menu()
+                return
+            elif answer == 4:
+                clear()
+                quit()
+            else:
+                print('Invalid option, please try again.')
+                time.sleep(0.75)
+                clear()
+                continue
+                    
+            
 
 
     elif session_status == 'admin':
@@ -99,38 +100,37 @@ Choice: '''
         while TF == True:
             try:
                 answer = int(input(menu))
-                if answer == 1:
-                    add_event()
-                    return
-                elif answer == 2:
-                    modify_event()
-                    return
-                elif answer == 3:
-                    list_event_menu()
-                    return
-                elif answer == 4:
-                    customer_records()
-                    return
-                elif answer == 5:
-                    log_out()
-                    return
-                elif answer == 6:
-                    clear()
-                    quit()
-                else:
-                    print('Invalid option, please try again.')
-                    time.sleep(0.75)
-                    clear()
-                    continue
-            
             except:
                 print('Invalid option, please try again.')
                 time.sleep(0.75)
                 clear()
                 continue
+            if answer == 1:
+                add_event()
+                return
+            elif answer == 2:
+                modify_event()
+                return
+            elif answer == 3:
+                list_event_menu()
+                return
+            elif answer == 4:
+                customer_records()
+                return
+            elif answer == 5:
+                log_out()
+                return
+            elif answer == 6:
+                clear()
+                quit()
+            else:
+                print('Invalid option, please try again.')
+                time.sleep(0.75)
+                clear()
+                continue
+            
+            
                 
-
-
 
     elif session_status == 'registered':
         
@@ -152,32 +152,33 @@ Choice: '''
         while TF == True:
             try:
                 answer = int(input(menu))
-                if answer == 1:
-                    list_event_menu()
-                    return
-                elif answer == 2:
-                    cart()
-                    return
-                elif answer == 3:
-                    view_cart()
-                    return
-                elif answer == 4:
-                    log_out()
-                    return
-                elif answer == 5:
-                    clear()
-                    quit()
-                else:
-                    print('Invalid option, please try again.')
-                    time.sleep(0.75)
-                    clear()
-                    continue
-            
             except:
                 print('Invalid option, please try again.')
                 time.sleep(0.75)
                 clear()
                 continue
+            if answer == 1:
+                list_event_menu()
+                return
+            elif answer == 2:
+                cart()
+                return
+            elif answer == 3:
+                view_cart()
+                return
+            elif answer == 4:
+                log_out()
+                return
+            elif answer == 5:
+                clear()
+                quit()
+            else:
+                print('Invalid option, please try again.')
+                time.sleep(0.75)
+                clear()
+                continue
+            
+            
         
 
 
@@ -191,12 +192,10 @@ def log_in():
     TF = True
 
     while TF == True:  
-        clear()
-        try:  
-            info_file = open('account_info.txt', 'r', 1)
-            print('OEMS Login')
-            acc_name = input('Please enter your username: ')
-        except:
+        info_file = open('account_info.txt', 'r', 1)
+        print('OEMS Login')
+        acc_name = input('Please enter your username: ')
+        if acc_name == "":
             print('No username entered, please try again.')
             time.sleep(0.75)
             clear()
@@ -225,13 +224,9 @@ def log_in():
                         time.sleep(0.75)
 
                         while TF == True:
-                            try:
-                                admin_confirmation = input('Are you an admin? [y/n] ')
-                            except:
-                                print('Invalid option, please try again.')
-                                time.sleep(0.75)
-                                continue
-
+                            
+                            admin_confirmation = input('Are you an admin? (y/n) ')
+                            
                             if admin_confirmation == 'y' or admin_confirmation == 'Y':
                                 clear()
                                 time.sleep(0.75)
@@ -299,34 +294,34 @@ What would you like to do?
 Choice: '''
             while TF == True:
                 try:
-                    log_in_retry = input(log_in_retry)
-                    if log_in_retry == '1':
-                        clear()
-                        time.sleep(0.75)
-                        continue
-                    
-                    elif log_in_retry == '2':
-                        info_file.close
-                        acc_name = None
-                        acc_register()
-                        return  
-
-                    elif log_in_retry =='3':
-                        main_menu()                     
-                        return
-
-                    else:
-                        print('Invalid option, please try again.')
-                        time.sleep(0.75)
-                        clear()
-                        continue
-
+                    log_in_retry = int(input(log_in_retry))
                 except:
                     print('Invalid option, please try again.')
-                    time.sleep(0.75)
                     clear()
+                    time.sleep(0.75)
                     continue
-                    
+                
+                if log_in_retry == 1:
+                    log_in()
+                    return
+                
+                elif log_in_retry == 2:
+                    info_file.close
+                    acc_name = None
+                    acc_register()
+                    return  
+
+                elif log_in_retry == 3:
+                    main_menu()                     
+                    return
+
+                else:
+                    print('Invalid option, please try again.')
+                    time.sleep(0.75)
+                    continue
+
+            
+                
     return
 
 
@@ -355,13 +350,12 @@ def acc_register():
     amount_spent = 0
 
     while TF == True:
-        try:
-            status = True
-            print('OEMS Account Registration\n')
-            acc_name = input('Please enter your username: ')
+        
+        status = True
+        print('OEMS Account Registration\n')
+        acc_name = input('Please enter your username: ')
             #ask for username
-            
-        except:
+        if acc_name == "":
             print('No username entered, please enter a username.')
             time.sleep(0.75)
             clear()
@@ -382,31 +376,33 @@ def acc_register():
             #checking name availability  
     
         while TF == True:
-            try:
-                payment_card = input('Please enter your credit/debit card number [****-****-****-****]: ')
-                break
-            except:
+            
+            payment_card = input('Please enter your credit/debit card number [**** **** **** ****]: ')
+                
+            if payment_card == '':
                 print('No credit/debit card entered, please enter your credit/debit card number.')
                 time.sleep(0.75)
                 continue
+            break
         
         while TF == True:
-            try:
-                acc_password = input('Please enter your password: ')
-                break
-            except:
+            
+            acc_password = input('Please enter your password: ')
+                
+            if acc_password == "":
                 print('No password entered, please enter your password.')
                 time.sleep(0.75)
                 continue
+            break
 
         while TF == True:
-            try:
-                confirmation = input('Please confirm your password: ')
-                break
-            except:
+            confirmation = input('Please confirm your password: ')
+            
+            if confirmation == "":
                 print('No password entered, please enter your password.')
                 time.sleep(0.75)
                 continue
+            break
         
         
 
@@ -420,7 +416,7 @@ def acc_register():
         elif acc_password == confirmation:
             clear()
             time.sleep(0.75)
-            acc_info = [acc_name, acc_password, amount_spent, payment_card]
+            acc_info = [acc_name, acc_password, payment_card, amount_spent]
             file = open('account_info.txt', 'a',1)
             file.write (str(acc_info).strip('[]').replace("'", '') + '\n')
             file.close
@@ -442,27 +438,28 @@ Choice: '''
     while TF == True: 
         try:
             choice = int(input(option))
-
-            if choice == 1:
-                TF = False
-                main_menu()
-                return
-            elif choice == 2:
-                TF = False
-                log_in()
-                return
-            elif choice == 3:
-                clear()
-                quit()
-            else:
-                print("Invalid option, please try again.")
-                continue 
-
         except:
             print('Invalid option, please try again.')
             time.sleep(0.75)
             clear()
             continue
+
+        if choice == 1:
+            TF = False
+            main_menu()
+            return
+        elif choice == 2:
+            TF = False
+            log_in()
+            return
+        elif choice == 3:
+            clear()
+            quit()
+        else:
+            print("Invalid option, please try again.")
+            continue 
+
+      
 
     #execute command given by user
 
@@ -488,28 +485,29 @@ Choice: '''
     while TF == True:
         try:
             answer = int(input(events))
-            
-            if answer <= 6:
-                if answer == 6:
-                    TF = False
-                    main_menu()
-                    return
-                else:
-                    return answer
-            
-            else:
-                clear()
-                time.sleep(0.75)
-                print("Invalid option, please try again.")
-                time.sleep(0.75)
-                clear()
-                continue
-        
         except:
             print('Invalid option, please try again.')
             time.sleep(0.75)
             clear()
             continue
+            
+        if answer <= 6:
+            if answer == 6:
+                TF = False
+                main_menu()
+                return
+            else:
+                return answer
+        
+        else:
+            clear()
+            time.sleep(0.75)
+            print("Invalid option, please try again.")
+            time.sleep(0.75)
+            clear()
+            continue
+        
+        
         
 
     #asking user to choose category
@@ -536,14 +534,12 @@ def add_event():
 
     while TF == True:
         status = True
-
-        try:
-            event_name = input('Please enter the event name: ')
-        except:
+        event_name = input('Please enter the event name: ')
+        if event_name == "":
             print('No event name entered, please enter an event name.')
             time.sleep(0.75)
             continue
-
+       
         fhandler = open('event.txt','r')
         for line in fhandler:
                 event_info = line.split(',')
@@ -559,12 +555,18 @@ def add_event():
         while TF == True:
             try:
                 event_price = int(input('How much is the event?(RM): '))
+                if event_price == '' or event_price == 0:
+                    print('No price entered, please enter price.')
+                    time.sleep(0.75)
+                    continue
                 break
             except:
                 print('No price entered, please enter a price.')
                 time.sleep(0.75)
                 continue
         #asking for name and price
+            
+
 
         listid=1
         fhandler = open ('event.txt','r')
@@ -596,13 +598,17 @@ def modify_event():
     TF = True
 
     while TF == True:
-        try:
-            choice_id = input("Which event would you like to modify?[ID]: ")
-            break
-        except:
+        
+        choice_id = input("Which event would you like to modify?[ID]: ")
+        
+        if choice_id == "":
             print('No event ID entered, please enter an event ID.')
             time.sleep(0.75)
             continue
+        
+        else:
+            break
+        
 
     fhandler_read = open('event.txt','r', 1)
     
@@ -658,25 +664,22 @@ Choice: '''
 
             elif option_input == 2:
                 while TF == True:
-                    try:
-                        new_name = input('Please enter new event name: ')
-                        break
-                    except:
-                        print('No new event name entered, please enter new event name.')
+                    new_name = input('Please enter new event name: ')
+                    if event_name == "":
+                        print('No new event name entered, please enter a new event name.')
                         time.sleep(0.75)
                         continue
                 break
 
             elif option_input == 3:
                 while TF == True:
-                    try:
-                        new_price = (input('Please enter new price[RM]: '))
-                        break
-                    except:
+                    new_price = (input('Please enter new price[RM]: '))
+                    if new_price == '' or new_price == '0':
                         print('No new price entered, please enter new price.')
                         time.sleep(0.75)
                         continue
-                break
+                    else:
+                        break
 
             elif option_input == 5:
                 main_menu()
@@ -771,26 +774,24 @@ Choice: '''
     while TF == True:
         print('\n')
         try:
-            choice = input(event_menu)
-            if choice == '1':
-                list_event_menu()
-                return
-            elif choice == '2':
-                TF = False
-                main_menu()
-                return
-            else:
-                clear()
-                print('Invalid choice, please try again.')
-                time.sleep(3)
-                clear()
-                continue
+            choice = int(input(event_menu))
         except:
-            clear()
             print('Invalid choice, please try again.')
-            time.sleep(3)
-            clear()
+            time.sleep(0.75)
             continue
+            
+        if choice == 1:
+            list_event_menu()
+            return
+        elif choice == 2:
+            TF = False
+            main_menu()
+            return
+        else:
+            print('Invalid choice, please try again.')
+            time.sleep(0.75)
+            continue
+    
 
     return
 
@@ -807,9 +808,8 @@ def cart():
     
     while TF == True:
         print('\n')
-        try:
-            event_choice = input("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")
-        except:
+        event_choice = input("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")
+        if event_choice == "":
             print('No event ID entered, please enter an event ID.')
             time.sleep(0.75)
             continue
@@ -833,14 +833,10 @@ def cart():
                         cart_file.write (str(event_info).strip('[]').replace("'", '') + '\n')
                         clear()
                         time.sleep(0.75)
-                        while TF == True:
-                            try:
-                                add_another_event = input('Event successfully added to cart, would you like to add another event? (y/n): ')
-                                break
-                            except:
-                                print('Invalid option, please try again.')
-                                time.sleep(0.75)
-                                continue
+                        
+                        
+                        add_another_event = input('Event successfully added to cart, would you like to add another event? (y/n): ')
+                            
 
                         if add_another_event == 'y' or add_another_event == 'Y':
                             event_list()
@@ -852,6 +848,10 @@ def cart():
                             time.sleep(3)
                             main_menu()
                             return
+                        else:
+                            print('Invalid option, please try again.')
+                            time.sleep(0.75)
+                            continue
 
                 elif event_choice == 'n' or event_choice == 'N':
                     TF = False
@@ -910,67 +910,70 @@ def view_cart():
 Choice: '''
     while TF == True:
         try:
-            answer = input(view_cart_menu)
+            answer = int(input(view_cart_menu))
             break
         except:
             print('Invalid option, please try again.')
             time.sleep(0.75)
             continue
 
-    if answer == '1':
+    if answer == 1:
+        
         while TF == True:
-            try:
-                confirmation = input('Are you sure you would like to checkout all items? (y/n): ')
-                break
-            except:
+            confirmation = input('Are you sure you would like to checkout all items? (y/n): ')
+          
+            
+
+            if confirmation == 'y' or confirmation == 'Y':
+                print('Processing...')
+
+                
+                with open('account_info.txt') as fhandler_read:
+            
+                    account_data_temp = []         
+                    account_data = fhandler_read.readlines()
+                    for account in account_data:
+                        accounts = account.split(',')
+                        account_name = accounts[0].strip()
+                        amount_spent = accounts[3].strip()
+                        new_total_price = str(total_price + int(amount_spent))
+                        
+                        if account_name == acc_name:
+                            account = account.replace(amount_spent, new_total_price)
+                            
+                        account_data_temp.append(account)
+                    
+                
+                
+                with open('account_info.txt', 'w', 1) as fhandler_write:
+                    for account in account_data_temp:
+                        fhandler_write.write(account)
+
+                cartfile = open('cart.txt', 'w', 1)
+                cartfile.close()
+
+                clear()
+                time.sleep(0.75)
+                print('Purchase complete, the receipt will be sent to you by the end of the month, Thank you!')
+                time.sleep(3)
+                clear()
+                print('Redirecting you to the main menu...')
+                time.sleep(3)
+                main_menu()
+                return
+
+            elif confirmation == 'n' or confirmation == 'N':
+                view_cart()
+                return
+            
+            else:
                 print('Invalid option, please try again.')
                 time.sleep(0.75)
                 continue
 
-        if confirmation == 'y' or confirmation == 'Y':
-            print('Processing...')
-
             
-            with open('account_info.txt') as fhandler_read:
-        
-                account_data_temp = []         
-                account_data = fhandler_read.readlines()
-                for account in account_data:
-                    accounts = account.split(',')
-                    account_name = accounts[0].strip()
-                    amount_spent = accounts[2].strip()
-                    new_total_price = str(total_price + int(amount_spent))
-                    
-                    if account_name == acc_name:
-                        account = account.replace(amount_spent, new_total_price)
-                        
-                    account_data_temp.append(account)
-                
-            
-            
-            with open('account_info.txt', 'w', 1) as fhandler_write:
-                for account in account_data_temp:
-                    fhandler_write.write(account)
 
-            cartfile = open('cart.txt', 'w', 1)
-            cartfile.close()
-
-            clear()
-            time.sleep(0.75)
-            print('Purchase complete, the receipt will be sent to you by the end of the month, Thank you!')
-            time.sleep(3)
-            clear()
-            print('Redirecting you to the main menu...')
-            time.sleep(3)
-            main_menu()
-            return
-
-        elif confirmation == 'n' or confirmation == 'N':
-            view_cart()
-            return
-
-
-    elif answer == '2':
+    elif answer == 2:
         print('Sending you to main menu...')
         time.sleep(3)
         main_menu()
@@ -1003,13 +1006,13 @@ Choice: '''
 
     while TF == True:
         try:
-            option = input(menu)
+            option = int(input(menu))
         except:
             print('Invalid option, please try again.')
             time.sleep(0.75)
             continue
 
-        if option == '1':
+        if option == 1:
             clear()
             time.sleep(0.75)
             print('Sending you back to the main menu...')

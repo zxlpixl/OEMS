@@ -1,6 +1,11 @@
-1, Sports, masterbed, 69
-2, E-Sports, valo, 420
-3, Technology, PS69 release, 6900
-4, E-Sports, minecraft, 69
-5, Sports, ten is, 0
-6, Sports, badminton, 20
+1, Sports, Badminton, 100
+2, E-Sports, Apex Legends Semi-finals, 120
+3, Technology, AI-con, 130
+4, Art, Comix Comic Convention, 140
+5, General Entertainment, Fashion Show, 50
+6, Sports, Basketball, 110
+7, E-Sports, Minecraft Building Competition, 150
+8, Technology, Hackathon, 135
+9, Art, Art Gallery Showcase, 90
+10, General Entertainment, Drifting Competition, 85
+11, Sports, Tennis, 60
