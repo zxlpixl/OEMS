@@ -681,7 +681,8 @@ Choice: '''
                         print('No new event name entered, please enter a new event name.')
                         time.sleep(0.75)
                         continue
-                break
+                    else:
+                        break
 
             #price of event is to be modified, asks user to input new price for the event
             elif option_input == 3:
