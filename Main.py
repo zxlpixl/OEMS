@@ -825,7 +825,7 @@ def cart():
 
     #asks which event user would like to add to their cart
     while TF == True:
-        print('\n')
+        
         event_choice = input("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")
         if event_choice == "":
             print('No event ID entered, please enter an event ID.')
@@ -877,6 +877,13 @@ def cart():
                     time.sleep(3)
                     main_menu()
                     return
+
+                else:
+                    print('The event ID you entered does not exist, please try again.')
+                    time.sleep(0.75)
+                    break
+            continue
+                
     return
                             
 
@@ -920,6 +927,7 @@ def view_cart():
 
     print('\n')
     print(f"Total Price: RM{total_price}")
+    print('\n')
 
     view_cart_menu = '''What would you like to do?
 
