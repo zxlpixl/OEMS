@@ -2,15 +2,20 @@ import time
 import os
 
 
-session_status = 'guest'
-acc_name = None
 
 
-#start
+#the session_status and acc_name variables here are used for resetting the program to its base form, and acts as a sort of "automatic logout" on program exit.
+session_status = 'guest' #the program consists of 3 different session statuses, guest(not logged in), registered(logged in with a valid account), admin(logged in with admin account)
+acc_name = None 
+
+
+
+
+#start function: helps with initiating the program
 def start():
     clear()
     print('OEMS is loading...')
-    cartfile = open('cart.txt', 'w', 1)
+    cartfile = open('cart.txt', 'w', 1)  #used to clear the cart, as the cart works on a per session basis
     cartfile.close()
     time.sleep(3)
     print('Done!')
@@ -21,7 +26,7 @@ def start():
 
 
 
-#clear command
+#clear function: helps with clearing the terminal, mainly for aesthetic purposes
 def clear():
     if os.name == 'nt':
         os.system('cls')
@@ -31,14 +36,14 @@ def clear():
 
 
 
-
-#main menu function
+#main menu function: helps with showing the user the main menu of the program for the ease of access to other functions in the program
 def main_menu():
     clear()
     time.sleep(0.75)
     
     TF = True
 
+    #checks if session status is guest
     if session_status == 'guest':
 
         menu ='''Welcome to OEMS, The Online Event Management System!
@@ -51,6 +56,7 @@ What would you like to do?
 
 Choice: '''
     
+        #execute user's choice
         while TF == True:
             try:
                 answer = int(input(menu))
@@ -80,8 +86,8 @@ Choice: '''
                     
             
 
-
-    elif session_status == 'admin':
+    #checks if session status to "admin"
+    elif session_status == 'admin': 
         
         print(f'Welcome to the OEMS admin menu, {acc_name}')
         
@@ -96,7 +102,7 @@ Choice: '''
 
 Choice: '''
 
-
+        #execute user's choice
         while TF == True:
             try:
                 answer = int(input(menu))
@@ -131,7 +137,7 @@ Choice: '''
             
             
                 
-
+    #checks if session status to "registered"
     elif session_status == 'registered':
         
         print(f'Welcome back {acc_name}!')
@@ -148,7 +154,7 @@ Attention: Please note that cart items will only remain for this session only. C
 
 Choice: '''
 
-
+        #executes user's choice
         while TF == True:
             try:
                 answer = int(input(menu))
@@ -181,9 +187,7 @@ Choice: '''
             
         
 
-
-
-#log in function
+#log in function: helps the user to be able to log in to the program, into a normal registered account, or an admin account
 def log_in():
     clear()
     time.sleep(0.75)
@@ -191,6 +195,7 @@ def log_in():
     global acc_name
     TF = True
 
+    #asks user to input a username
     while TF == True:  
         info_file = open('account_info.txt', 'r', 1)
         print('OEMS Login')
@@ -208,10 +213,12 @@ def log_in():
 
             if acc_name == acc_info_name:
 
+                #asks user to input password
                 while TF == True:
-                    try:
-                        acc_password = input('Please enter your password: ')
-                    except:
+                    
+                    acc_password = input('Please enter your password: ')
+                   
+                    if acc_password == "":
                         print('No password entered, please try again.')
                         time.sleep(0.75)
                         clear()
@@ -225,6 +232,7 @@ def log_in():
 
                         while TF == True:
                             
+                            #user is required to answer y/n, to confirm if they are/aren't an admin
                             admin_confirmation = input('Are you an admin? (y/n) ')
                             
                             if admin_confirmation == 'y' or admin_confirmation == 'Y':
@@ -234,12 +242,14 @@ def log_in():
                                 while TF == True:
                                     clear()
                                     try:
+                                        #if user is an admin, an admin code is required, here "000" is used for an example
                                         admin_code = int(input('Please enter admin code (use this code for testing purposes:000) \nCode: '))
                                     except:
                                         print('No admin code entered, please try again.')
                                         time.sleep(0.75)
                                         continue
 
+                                    #checks the admin code
                                     if admin_code == 000:
                                         clear()
                                         time.sleep(0.75)
@@ -292,6 +302,7 @@ What would you like to do?
 3. Main menu
 
 Choice: '''
+            #executes user's choice
             while TF == True:
                 try:
                     log_in_retry = int(input(log_in_retry))
@@ -326,6 +337,8 @@ Choice: '''
 
 
 
+
+#logout function: helps with logging out the user from a logged in session into a guest session
 def log_out():
     clear()
     time.sleep(0.75)
@@ -341,7 +354,7 @@ def log_out():
 
 
 
-#account registration function
+#account registration function: helps users register an account
 def acc_register():
     
     TF = True
@@ -376,7 +389,7 @@ def acc_register():
             #checking name availability  
     
         while TF == True:
-            
+            #asks user for credit/debit card info for payment purposes
             payment_card = input('Please enter your credit/debit card number [**** **** **** ****]: ')
                 
             if payment_card == '':
@@ -386,7 +399,7 @@ def acc_register():
             break
         
         while TF == True:
-            
+            #asks user to enter password
             acc_password = input('Please enter your password: ')
                 
             if acc_password == "":
@@ -396,6 +409,7 @@ def acc_register():
             break
 
         while TF == True:
+            #asks user to confirm their password
             confirmation = input('Please confirm your password: ')
             
             if confirmation == "":
@@ -435,6 +449,7 @@ Choice: '''
     #options for user
     clear()
     time.sleep(0.75)
+    #executes user's choice
     while TF == True: 
         try:
             choice = int(input(option))
@@ -459,14 +474,10 @@ Choice: '''
             print("Invalid option, please try again.")
             continue 
 
-      
-
-    #execute command given by user
+    
 
 
-
-
-#show category function
+#show category function: helps with showing all existing categories 
 def category():
     TF = True
     clear()
@@ -482,6 +493,7 @@ def category():
 
 Choice: '''
     
+    #executes user's choice
     while TF == True:
         try:
             answer = int(input(events))
@@ -506,16 +518,11 @@ Choice: '''
             time.sleep(0.75)
             clear()
             continue
+            
         
-        
-        
 
-    #asking user to choose category
-
-
-
-
-#event adding function
+    
+#event adding function: helps admins to add events
 def add_event():
     TF = True
     choice = category()
@@ -534,6 +541,8 @@ def add_event():
 
     while TF == True:
         status = True
+        
+        #asks for the name of event
         event_name = input('Please enter the event name: ')
         if event_name == "":
             print('No event name entered, please enter an event name.')
@@ -548,10 +557,12 @@ def add_event():
                 if name_availability == event_name:     
                     status = False
         
+        #checks for the availability of event name
         if status == False:
             print("Event exists please try again")
             continue
         
+        #asks user price of event
         while TF == True:
             try:
                 event_price = int(input('How much is the event?(RM): '))
@@ -567,7 +578,7 @@ def add_event():
         #asking for name and price
             
 
-
+        #adds the information of event to file
         listid=1
         fhandler = open ('event.txt','r')
         for line in fhandler:
@@ -584,14 +595,14 @@ def add_event():
         print('Your event has been added.')
         time.sleep(3)
         TF == False
-        main_menu()
+        main_menu() #once done, sends user back to main menu
         return
     return
     
 
 
 
-#modify event function
+#modify event function: helps admins to modify the information of events
 def modify_event():
     event_list()
     print('\n')
@@ -599,6 +610,7 @@ def modify_event():
 
     while TF == True:
         
+        #asks user the ID of event which they would likke to modify
         choice_id = input("Which event would you like to modify?[ID]: ")
         
         if choice_id == "":
@@ -609,7 +621,7 @@ def modify_event():
         else:
             break
         
-
+    #reads information of selected event
     fhandler_read = open('event.txt','r', 1)
     
     for line in fhandler_read:
@@ -642,7 +654,7 @@ Choice: '''
                     clear()
                     continue 
 
-
+            #category of event is to be modified, lists all categories for user to select
             if option_input == 1:
                 choice = category()
                 
@@ -661,7 +673,8 @@ Choice: '''
                 elif choice == 5:
                     new_category = 'General Entertainment'
                     break
-
+            
+            #name of event is to be modified, asks user to input new name for the event
             elif option_input == 2:
                 while TF == True:
                     new_name = input('Please enter new event name: ')
@@ -671,6 +684,7 @@ Choice: '''
                         continue
                 break
 
+            #price of event is to be modified, asks user to input new price for the event
             elif option_input == 3:
                 while TF == True:
                     new_price = (input('Please enter new price[RM]: '))
@@ -680,7 +694,8 @@ Choice: '''
                         continue
                     else:
                         break
-
+            
+            #cancel modification and return to main menu
             elif option_input == 5:
                 main_menu()
                 return
@@ -688,6 +703,7 @@ Choice: '''
 
     fhandler_read.close()
 
+    #assigns new changes to file
     with open('event.txt') as fhandler_read:
         
         list_data_temp = []         
@@ -713,13 +729,13 @@ Choice: '''
     time.sleep(0.75)
     print("Modified complete, redirecting to main menu......")
     time.sleep(3)
-    main_menu()
+    main_menu() #sends users back to main menu when done
     return
         
 
 
 
-#list event function
+#list event function: helps with listing all events under specific categories
 def event_list():
     choice = category()
     clear()
@@ -727,7 +743,7 @@ def event_list():
 
     event_file = open('event.txt', 'r')
     
-
+    #checks which category has been selected by user
     if choice == 1:
         categoryid = 'Sports'
     elif choice == 2:
@@ -740,6 +756,7 @@ def event_list():
         categoryid = 'General Entertainment'
 
     
+    
     print('Category:',categoryid,'\n')
 
     for line in event_file:
@@ -749,15 +766,14 @@ def event_list():
         event_info_name = event_info[2].strip()
         event_info_price = event_info[3].strip()
         
-        
+        #prints out information of events under selected category
         if categoryid == event_info_category:
             print(f'ID:{event_info_id}          Event:{event_info_name}          Price:RM{event_info_price}')
 
-    
 
 
 
-
+#list event menu function: helps with showing a menu to users on what to do next for the event_list function
 def list_event_menu():
     event_list()
 
@@ -771,6 +787,7 @@ def list_event_menu():
 
 Choice: '''
 
+    #executes user's choice
     while TF == True:
         print('\n')
         try:
@@ -797,7 +814,8 @@ Choice: '''
 
 
 
-#cart_function
+
+#cart function: helps with adding events to customer's cart
 def cart():
     clear()
     time.sleep(0.75)
@@ -805,7 +823,7 @@ def cart():
     print('\n')
     TF = True
 
-    
+    #asks which event user would like to add to their cart
     while TF == True:
         print('\n')
         event_choice = input("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")
@@ -826,7 +844,7 @@ def cart():
                 event_name = events[2].strip()
                 event_price = events[3].strip()
 
-                
+                #writes information into cart file
                 if event_choice == event_id:
                     with open('cart.txt', 'a', 1) as cart_file:
                         event_info = [event_id, event_category, event_name, event_price]
@@ -834,7 +852,7 @@ def cart():
                         clear()
                         time.sleep(0.75)
                         
-                        
+                        #asks if user would like to add other events to cart
                         add_another_event = input('Event successfully added to cart, would you like to add another event? (y/n): ')
                             
 
@@ -864,13 +882,14 @@ def cart():
 
 
 
-
+#view cart function: helps with allowing registered users view items in their cart
 def view_cart():
     global acc_name
     clear()
     time.sleep(0.75)
     TF = True
     
+    #reads and shows the cart information
     try:
         with open('cart.txt') as cart_file:
             cart_file_read = cart_file.readlines()
@@ -908,6 +927,8 @@ def view_cart():
 2.Back to main menu
 
 Choice: '''
+    
+    #executes user's choice
     while TF == True:
         try:
             answer = int(input(view_cart_menu))
@@ -920,14 +941,16 @@ Choice: '''
     if answer == 1:
         
         while TF == True:
+            
+            #confirms with user if they are certain to checkout
             confirmation = input('Are you sure you would like to checkout all items? (y/n): ')
           
             
-
             if confirmation == 'y' or confirmation == 'Y':
                 print('Processing...')
 
                 
+                #reads and calculates required information
                 with open('account_info.txt') as fhandler_read:
             
                     account_data_temp = []         
@@ -944,11 +967,12 @@ Choice: '''
                         account_data_temp.append(account)
                     
                 
-                
+                #writes new information into user's account
                 with open('account_info.txt', 'w', 1) as fhandler_write:
                     for account in account_data_temp:
                         fhandler_write.write(account)
 
+                #clears the cart file after checkout
                 cartfile = open('cart.txt', 'w', 1)
                 cartfile.close()
 
@@ -959,7 +983,7 @@ Choice: '''
                 clear()
                 print('Redirecting you to the main menu...')
                 time.sleep(3)
-                main_menu()
+                main_menu() #sends user back to main menu when done
                 return
 
             elif confirmation == 'n' or confirmation == 'N':
@@ -983,11 +1007,13 @@ Choice: '''
 
 
 
+#customer records function: helps admins view information about all customers
 def customer_records():
     clear()
     time.sleep(0.75)
     TF = True
     print('Customer records\n')
+    #reads the account information file
     with open('account_info.txt') as fhandler:
         accounts = fhandler.readlines()
         for item in accounts:
@@ -995,6 +1021,7 @@ def customer_records():
             account_name = account[0].strip()
             ammount_spent = account[2].strip()
 
+            #prints information of all registered accounts
             print(f'Username:{account_name}          Ammount spent:{ammount_spent}')
 
     menu = '''What would you like to do?
@@ -1003,7 +1030,7 @@ def customer_records():
 
 Choice: '''
 
-
+    #executes user's choice
     while TF == True:
         try:
             option = int(input(menu))
@@ -1030,13 +1057,5 @@ Choice: '''
 
 
 
-
-
-
-
-
- 
-
-
-
+#starts the program
 start()
