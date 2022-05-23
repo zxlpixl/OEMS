@@ -260,6 +260,7 @@ def log_in():
                                         clear()
                                         time.sleep(0.75)
                                         print('Admin code does not exist, please try again.')
+                                        time.sleep(0.75)
                                         continue
 
                             elif admin_confirmation == 'n' or admin_confirmation == 'N':
