@@ -205,16 +205,17 @@ FUNCTION log_in()
             IF acc_name == acc_info_name THEN
 
                 DOWHILE TF == True
-                    TRY
-                        PRINT('Please enter your password')
-                        Get acc_password
-                    CATCH
+    
+                    PRINT('Please enter your password')
+                    Get acc_password
+
+                    IF acc_password == "" THEN
                         PRINT('No password entered, please try again.')
                         sleeps for 0.75 seconds
-                        CALL FUNCTION clear()
                         CONTINUE
+    
 
-                    IF acc_password == acc_info_password THEN
+                    ELIF acc_password == acc_info_password THEN
                         CALL FUNCTION clear()
                         sleeps for 0.75 seconds
                         PRINT(f'Logged in successfully. Welcome back {acc_name}.')
@@ -725,13 +726,32 @@ FUNCTION modify_event()
             
                 ELIF option_input == 2 THEN
                     DOWHILE TF == True
-                    PRINT('Please enter new event name: ')
-                    Get new_name
-                    break
+                        PRINT('Please enter new event name: ')
+                        Get new_name
+                        IF new_name == "" THEN
+                            PRINT('No new event name entered, please enter a new event name.')
+                            sleeps for 0.75 seconds
+                            CONTINUE
+                        ELSE 
+                            BREAK
+                        ENDIF
+
+                    ENDWHILE
+
                 
                 ELIF option_input == 3 THEN
-                    new_price = (input('Please enter new price[RM]: '))
-                    break
+                    DOWHILE TF == True
+                        PRINT('Please enter new price[RM]: ')
+                        Get new_price
+                        IF new_price == '' or new_price == '0' THEN
+                            PRINT('No new price entered, please enter new price.')
+                            sleeps for 0.75 seconds
+                            CONTINUE
+                        ELSE 
+                            BREAK
+                        ENDIF
+
+                    ENDWHILE
 
                 ENDIF
             
@@ -781,7 +801,6 @@ FUNCTION modify_event()
     sleeps for 3 seconds
     CALL FUNCTION main_menu()
 
-
     RETURN
 
 ENDFUNCITON
@@ -825,73 +844,45 @@ ENDFUNCTION
 
 
 FUNCTION list_event_menu()
+
     CALL FUNCTION event_list()
 
-    DECLARE session_status as Global variable
-
     TF = True
-    IF session status == 'guest' THEN
-        event_menu = ''What would you like to do?
+
+    event_menu = '''What would you like to do?
 
     1.Back to category menu
     2.Back to main menu
 
     Choice: '''
 
-        DOWHILE TF == True
-            PRINT('\n')
+    DOWHILE TF == True
+        PRINT('\n')
+
+        TRY
             PRINT(event_menu)
             Get choice
+        CATCH
+            PRINT('Invalid choice, please try again.')
+            sleeps for 0.75 seconds
+            CONTINUE
             
-            IF choice == '1' THEN
-                TF = False
-                CALL FUNCTION category()
-            ELIF choice == '2' THEN
-                TF = False
-                CALL FUNCTION main_menu()
-            ELSE
-                CALL FUNCTION clear()
-                PRINT('Invalid choice, please try again.')
-                sleeps for 3 seconds
-                CALL FUNCTION clear()
-                CONTINUE
-            ENDIF
-        
-        ENDWHILE
-
-    ELIF session_status == 'registered' THEN
-        event_menu = '''What would you like to do?
-
-    1.Add events to cart
-    2.Back to category menu
-    3.Back to main menu
-
-    Choice: '''
-
-        DOWHILE TF == True 
-            PRINT('\n')
-            PRINT(event_menu)
-
-            IF choice == '1' THEN
-                TF = False
-                CALL FUNCTION cart()
-            ELIF choice == '2' THEN
-                TF = False
-                CALL FUNCTION category()
-            ELIF choice == '3' THEN
-                TF = False
-                CALL FUNCTION main_menu()
-            ELSE
-                CALL FUNCTION clear()
-                PRINT('Invalid choice, please try again.')
-                sleeps for 3 seconds
-                CALL FUNCTION clear()
-                CONTINUE
-            ENDIF
-            
-        ENDWHILE
-
-    ENDIF
+        IF choice == 1 THEN
+            CALL FUNCTION list_event_menu()
+            RETURN
+        ELIF choice == 2 THEN
+            TF = False
+            CALL FUNCTION main_menu()
+            RETURN
+        ELSE
+            PRINT('Invalid choice, please try again.')
+            sleeps for 0.75 seconds
+            CONTINUE
+        ENDIF
+    
+    ENDWHILE
+    
+    RETURN
 
 ENDFUNCTION  
 
@@ -905,8 +896,16 @@ FUNCTION cart()
 
 
     DOWHILE TF == True
+
+        PRINT('\n')
         PRINT("Which event[ID] would you like to add to cart? (Type 'n' to cancel): ")   
         Get event_choice
+
+        IF event_choice == "" THEN
+            PRINT('No event ID entered, please enter an event ID.')
+            sleeps for 0.75 seconds
+            CONTINUE
+        ENDIF
 
         WITH OPEN event.txt in READ mode as event_file
 
@@ -926,19 +925,24 @@ FUNCTION cart()
                         APPEND event_info into cart_file
                         CALL FUNCTION clear()
                         sleeps for 0.75 seconds
-                        TF = False
                         
                         PRINT('Event successfully added to cart, would you like to add another event? (y/n): ')
                         Get add_another_event
 
                         IF add_another_event == 'y' or add_another_event == 'Y' THEN
                             CALL FUNCTION event_list()
+                            CONTINUE
                         ELIF add_another_event == 'n' or add_another_event == 'N' THEN
                             CALL FUNCTION clear()
                             sleeps for 0.75 seconds
                             PRINT('Sending you to main menu...')
                             sleeps for 3 seconds
                             CALL FUNCTION main_menu()
+                            RETURN
+                        ELSE
+                            PRINT('Invalid option, please try again.')
+                            sleeps for 0.75 seconds
+                            CONTINUE
                         ENDIF
 
                 ELIF event_choice == 'n' or event_choice == 'N' THEN
@@ -962,20 +966,187 @@ FUNCTION view_cart()
     Declare acc_name as Global variable
     CALL FUNCTION clear()
     sleeps for 0.75 seconds
+    TF = True
 
     TRY 
-        WITH OPEN cart.txt
+        WITH OPEN cart.txt in READ mode as cart_file
+            readlines in cart_file as cart_file_read
+            total_price = 0
 
+            PRINT(f"{acc_name}'s cart.\n")
+
+            FOR item in cart_file_read
+                SPLIT item as events with ',' as delimiter
+                STRIP events with index of 0 as event_id
+                STRIP events with index of 1 as event_category
+                STRIP events with index of 2 as event_name
+                STRIP events with index of 3 as event_price
+                total_price = total_price + int(event_price)
+
+                PRINT(f'ID:{event_id}          Category:{event_category}          Event:{event_name}          Price:RM{event_price}')
+            ENDFOR
+
+    CATCH
+        CALL FUNCTION clear()
+        sleeps for 0.75 seconds
+        PRINT('No records in cart, redirecting to main menu...')
+        sleeps for 3 seconds
+        CALL FUNCTION main_menu()
+        RETURN
+    
+    PRINT('\n')
+    PRINT(f"Total Price: RM{total_price}")
+
+    view_cart_menu = '''What would you like to do?
+
+    1.Proceed to checkout
+    2.Back to main menu
+
+    Choice: '''
+    
+    DOWHILE TF = True
+        TRY
+            PRINT(view_cart_menu)
+            Get answer
+            BREAK
+        CATCH
+            PRINT('Invalid option, please try again.')
+            sleeps for 0.75 seconds
+            CONTINUE
+    ENDWHILE
+
+    IF answer == 1 THEN
+
+        DOWHILE TF = True
+            PRINT('Are you sure you would like to checkout all items? (y/n): ')
+            Get confirmation
+                IF confirmation == 'y' or confirmation == 'Y' THEN
+                    PRINT('Processing...')
+
+                    WITH OPEN account_info.txt in READ mode as fhandler_read
+
+                        account_data_temp = []
+                        readlines in fhandler_read as account_data
+                        FOR account in account_data
+                            SPLIT account as accounts with ',' as delimiter
+                            STRIP accounts with index of 0 as account_name
+                            STRIP accounts with index of 3 as amount_spent
+                            new_total_price = STR(total_price + int(amount_spent))
+
+                            IF account_name == acc_name THEN
+                                account = replace amount_spent with new_total_price in account  
+                            ENDIF
+
+                            APPEND account into account_data_temp
+
+                        ENDFOR
+
+                    WITH OPEN account_info.txt in WRITE mode with buffering set to 1 as fhandler_write
+                        FOR account in account_data_temp
+                            WRITE account in fhandler_write
+                        ENDFOR 
+
+                    OPEN cart.txt in WRITE mode with buffering set to 1 as cart_file
+                    CLOSE cart_file
+
+                    CALL FUNCTION clear()
+                    sleeps for 0.75 seconds 
+                    PRINT('Purchase complete, the receipt will be sent to you by the end of the month, Thank you!')  
+                    sleeps for 3 seconds
+                    CALL FUNCTION clear()
+                    PRINT('Redirecting you to the main menu...')
+                    sleeps for 3 seconds
+                    CALL FUNCTION main_menu()
+                    RETURN
+                
+                ELIF confirmation == 'n' or confirmation == 'N' THEN
+                    CALL FUNCTION view_cart()
+                    RETURN
+
+                ELSE
+                    PRINT('Invalid option, please try again.')
+                    sleeps for 0.75 seconds
+                    CONTINUE
+
+                ENDIF
+                
+        ENDWHILE
+
+    ELIF answer == 2 THEN
+        PRINT('Sending you to main menu...')
+        sleeps for 3 seconds
+        CALL FUNCTION main_menu()
+        RETURN
+
+    ENDIF
+
+    RETURN
 
 ENDFUNCTION
+
+
+FUNCTION customer_records()
+    
+    CALL FUNCTION clear()
+    sleeps for 0.75 seconds
+    TF = True
+    PRINT('Customer records\n')
+
+    WITH OPEN account_info.txt in READ mode as fhandler
+        readlines in fhandler as accounts
+        FOR item in accounts
+            SPLIT item as account with (',') as delimiter
+            STRIP account with index of 0 as account_name
+            STRIP account with index of 2 as amount_spent
+
+            PRINT(f'Username:{account_name}          Ammount spent:{ammount_spent}')
+
+            menu = '''What would you like to do?
+    
+            1.Back to main menu
+
+            Choice: '''
+
+            DOWHILE TF = True
+                TRY
+                    PRINT(menu)
+                    Get option
+                CATCH
+                    PRINT('Invalid option, please try again.')
+                    sleeps for 0.75 seconds
+                    CONTINUE
+
+                IF option == 1 THEN
+                    CALL FUNCTION clear()
+                    sleeps for 0.75 seconds
+                    PRINT('Sending you back to the main menu...')
+                    sleeps for 3 seconds
+                    TF = False
+                    CALL FUNCTION main_menu()
+                    RETURN
+                ELSE
+                    PRINT('\n')
+                    PRINT('Invalid option, please try again.')
+                    sleeps for 0.75 seconds
+                    CONTINUE
+                ENDIF
+
+            ENDWHILE
+
+        ENDFOR
+
+ENDFUNCTION
+
+
+
 
 
 Program OEMS
 BEGIN
 
-    DECLARE session_status, acc_name, menu, acc_name, acc_password, admin_confirmation, payment_card, confirmation, acc_info, option, events, acc_info_name, acc_info_password, event_info, event_id, event_category, event_name, even_price, name_availability, event_list, categoryid, choice_id, new_category, new_name, new_price, list_data_temp, list_data   as an array of string
+    DECLARE session_status, acc_name, menu, acc_name, acc_password, admin_confirmation, payment_card, confirmation, acc_info, option, events, acc_info_name, acc_info_password, event_info, event_id, event_category, event_name, even_price, event_info, event_info_id, event_info_category, event_info_name, even_info_price, name_availability, event_list, categoryid, choice_id, new_category, new_name, new_price, list_data_temp, list_data, event_menu, event_choice, add aother_event, view_cart_menu, account_data, account_data_temp, accounts, account_name, amount_spent, new_total_price as an array of string
     DECLARE TF, status as a boolean
-    DECLARE answer, admin_code, log_in_retry, amount_spent, choice, event_price, listid, option_input as integer
+    DECLARE answer, admin_code, log_in_retry, amount_spent, choice, event_price, listid, option_input, total_price as integer
 
     IMPORT os and time module
 
