@@ -221,10 +221,9 @@ def log_in():
                     if acc_password == "":
                         print('No password entered, please try again.')
                         time.sleep(0.75)
-                        clear()
                         continue
                 
-                    if acc_password == acc_info_password:
+                    elif acc_password == acc_info_password:
                         clear()
                         time.sleep(0.75)                      
                         print(f'Logged in successfully. Welcome back {acc_name}.')
@@ -678,11 +677,12 @@ Choice: '''
             elif option_input == 2:
                 while TF == True:
                     new_name = input('Please enter new event name: ')
-                    if event_name == "":
+                    if new_name == "":
                         print('No new event name entered, please enter a new event name.')
                         time.sleep(0.75)
                         continue
-                break
+                    else:
+                        break
 
             #price of event is to be modified, asks user to input new price for the event
             elif option_input == 3:
