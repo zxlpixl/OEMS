@@ -1573,6 +1573,9 @@
                 <mxCell id="147" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="140" target="141" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
+                <mxCell id="166" style="edgeStyle=none;html=1;" edge="1" parent="1" source="140" target="165">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
                 <mxCell id="140" value="exception occurs" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=#F0F0F0;" parent="1" vertex="1">
                     <mxGeometry x="525" y="2800" width="150" height="80" as="geometry"/>
                 </mxCell>
@@ -1651,7 +1654,7 @@
                         <mxPoint x="3790" y="1730" as="targetPoint"/>
                         <Array as="points">
                             <mxPoint x="3160" y="365"/>
-                            <mxPoint x="3170" y="1825"/>
+                            <mxPoint x="3160" y="1825"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -1708,8 +1711,11 @@
                 <mxCell id="164" value="TRUE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="690.63" y="2860" width="50" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="165" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="321.26" y="2900" width="268.75" height="90" as="geometry"/>
+                <mxCell id="165" value="IF answer &amp;lt;= 6 ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="297.21" y="2940" width="248.74" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="167" value="Text" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="2880" width="40" height="20" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
