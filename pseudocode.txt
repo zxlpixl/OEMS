@@ -99,14 +99,19 @@ FUNCTION main_menu()
 
             IF answer == 1 THEN
                 CALL FUNCTION add_event()
+                RETURN
             ELIF answer == 2 THEN
                 CALL FUNCTION modify_event()
+                RETURN
             ELIF answer == 3 THEN
                 CALL FUNCTION list_event_menu()
+                RETURN
             ELIF answer == 4 THEN
                 CALL FUNCTION customer_record()
+                RETURN
             ELIF answer == 5 THEN
                 CALL FUNCTION log_out()
+                RETURN
             ELIF answer == 6 THEN
                 CALL FUNCTION clear()
                 CALL FUNCTION quit()
