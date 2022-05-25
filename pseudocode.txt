@@ -82,8 +82,7 @@ FUNCTION main_menu()
     1. Add New Event
     2. Modify Event 
     3. Event Information 
-    4. Customer Records #function to be created
-    5. Logout
+    4. Customer Records 
     6. Exit
 
     Choice: '''
