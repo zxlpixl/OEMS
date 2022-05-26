@@ -773,8 +773,8 @@ FUNCTION modify_event()
 
                 ENDIF
 
-            BREAK
             ENDWHILE
+            BREAK
         
         ENDIF
     
