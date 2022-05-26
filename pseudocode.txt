@@ -387,7 +387,7 @@ FUNCTION acc_register()
         IF acc_name == "" THEN
             PRINT('No username entered, please enter a username.')
             sleeps for 0.75 seconds
-            CALL FUCNTION clear()
+            CALL FUNCTION clear()
             CONTINUE
         ENDIF
 
