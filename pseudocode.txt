@@ -693,6 +693,7 @@ FUNCTION modify_event()
     2. Change event name
     3. Change event price
     4. Delete event 
+    5. Cancel
 
     Choice: '''
         
@@ -756,9 +757,20 @@ FUNCTION modify_event()
                         ENDIF
 
                     ENDWHILE
+                
+                ELIF option_input == 5 THEN 
+                    CALL FUNCTION main_menu()
+                    RETURN
+
+                ELSE
+                    PRINT('Invalid option, please try again.')
+                    sleeps for 0.75 seconds
+                    CALL FUNCTION clear()
+                    CONTINUE
 
                 ENDIF
-            
+                
+            BREAK
             ENDWHILE
         
         ENDIF
