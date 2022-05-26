@@ -757,6 +757,9 @@ FUNCTION modify_event()
                         ENDIF
 
                     ENDWHILE
+
+                ELIF option_input == 4 THEN
+                    BREAK
                 
                 ELIF option_input == 5 THEN 
                     CALL FUNCTION main_menu()
@@ -769,7 +772,7 @@ FUNCTION modify_event()
                     CONTINUE
 
                 ENDIF
-                
+
             BREAK
             ENDWHILE
         
