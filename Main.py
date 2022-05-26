@@ -646,60 +646,66 @@ Choice: '''
             while TF == True:
                 try:
                     option_input = int(input(option))
-                    break
+                    
                 except:
                     print('Invalid option, please try again.')
                     time.sleep(0.75)
                     clear()
                     continue 
 
-            #category of event is to be modified, lists all categories for user to select
-            if option_input == 1:
-                choice = category()
+                #category of event is to be modified, lists all categories for user to select
+                if option_input == 1:
+                    choice = category()
+                    
+                    if choice == 1:
+                        new_category = 'Sports'
+                        break
+                    elif choice == 2:
+                        new_category = 'E-Sports'
+                        break
+                    elif choice == 3:
+                        new_category = 'Technology'
+                        break
+                    elif choice == 4:
+                        new_category = 'Art'
+                        break
+                    elif choice == 5:
+                        new_category = 'General Entertainment'
+                        break
                 
-                if choice == 1:
-                    new_category = 'Sports'
-                    break
-                elif choice == 2:
-                    new_category = 'E-Sports'
-                    break
-                elif choice == 3:
-                    new_category = 'Technology'
-                    break
-                elif choice == 4:
-                    new_category = 'Art'
-                    break
-                elif choice == 5:
-                    new_category = 'General Entertainment'
-                    break
-            
-            #name of event is to be modified, asks user to input new name for the event
-            elif option_input == 2:
-                while TF == True:
-                    new_name = input('Please enter new event name: ')
-                    if new_name == "":
-                        print('No new event name entered, please enter a new event name.')
-                        time.sleep(0.75)
-                        continue
-                    else:
-                        break
+                #name of event is to be modified, asks user to input new name for the event
+                elif option_input == 2:
+                    while TF == True:
+                        new_name = input('Please enter new event name: ')
+                        if new_name == "":
+                            print('No new event name entered, please enter a new event name.')
+                            time.sleep(0.75)
+                            continue
+                        else:
+                            break
 
-            #price of event is to be modified, asks user to input new price for the event
-            elif option_input == 3:
-                while TF == True:
-                    new_price = (input('Please enter new price[RM]: '))
-                    if new_price == '' or new_price == '0':
-                        print('No new price entered, please enter new price.')
-                        time.sleep(0.75)
-                        continue
-                    else:
-                        break
-            
-            #cancel modification and return to main menu
-            elif option_input == 5:
-                main_menu()
-                return
+                #price of event is to be modified, asks user to input new price for the event
+                elif option_input == 3:
+                    while TF == True:
+                        new_price = (input('Please enter new price[RM]: '))
+                        if new_price == '' or new_price == '0':
+                            print('No new price entered, please enter new price.')
+                            time.sleep(0.75)
+                            continue
+                        else:
+                            break
+                
+                #cancel modification and return to main menu
+                elif option_input == 5:
+                    main_menu()
+                    return
 
+                else:
+                    print('Invalid option, please try again.')
+                    time.sleep(0.75)
+                    clear()
+                    continue
+            break            
 
     fhandler_read.close()
 
