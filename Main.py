@@ -695,6 +695,9 @@ Choice: '''
                         else:
                             break
                 
+                elif option_input == 4:
+                    break
+                
                 #cancel modification and return to main menu
                 elif option_input == 5:
                     main_menu()
