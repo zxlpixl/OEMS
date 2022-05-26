@@ -500,7 +500,7 @@ FUNCTION acc_register()
             CALL FUNCTION log_in()
             RETURN
         ELIF choice == 3 THEN  
-            CALL FUNCTION clea() 
+            CALL FUNCTION clear() 
             CALL FUNCTION quit()
         ELSE 
             PRINT("Invalid option please try again")
