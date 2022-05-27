@@ -359,7 +359,7 @@ FUNCTION log_out()
 
     CALL FUNCTION clear()
     sleeps for 0.75 seconds
-    DECALRE session_status and acc_name as global variable 
+    DECLARE session_status and acc_name as global variable 
     session_status = 'guest'
     acc_name = None
     PRINT('Logging out...')
@@ -983,7 +983,7 @@ FUNCTION cart()
 
     RETURN
 
-ENDFUNTION
+ENDFUNCTION
 
 
 FUNCTION view_cart()
