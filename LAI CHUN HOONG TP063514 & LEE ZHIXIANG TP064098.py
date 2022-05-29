@@ -101,9 +101,10 @@ Choice: '''
 1. Add New Event
 2. Modify Event 
 3. View Event Information 
-4. Customer Records 
-5. Logout
-6. Exit
+4. All Customer Records 
+5. Specific Customer Records
+6. Logout
+7. Exit
 
 Choice: '''
 
@@ -129,9 +130,12 @@ Choice: '''
                 customer_records()
                 return
             elif answer == 5:
-                log_out()
+                specific_customer_records()
                 return
             elif answer == 6:
+                log_out()
+                return
+            elif answer == 7:
                 clear()
                 quit()
             else:
@@ -276,6 +280,7 @@ def log_in():
                                 clear()
                                 time.sleep(0.75)
                                 print('Redirecting you to the menu...')
+                                time.sleep(3)
                                 info_file.close
                                 session_status = 'registered'
                                 TF = False
@@ -688,6 +693,7 @@ Choice: '''
                             continue
                         else:
                             break
+                    break
 
                 #price of event is to be modified, asks user to input new price for the event
                 elif option_input == 3:
@@ -699,6 +705,7 @@ Choice: '''
                             continue
                         else:
                             break
+                    break
                 
                 elif option_input == 4:
                     break
@@ -871,8 +878,8 @@ def cart():
                             
 
                         if add_another_event == 'y' or add_another_event == 'Y':
-                            event_list()
-                            continue
+                            cart()
+                            return
                         elif add_another_event == 'n' or add_another_event == 'N':
                             clear()
                             time.sleep(0.75)
@@ -893,11 +900,12 @@ def cart():
                     return
 
                 else:
-                    print('The event ID you entered does not exist, please try again.')
-                    time.sleep(0.75)
-                    break
-            continue
-                
+                    continue
+
+            else:
+                 print('Input ID does not exists please try again')
+                 continue   
+                 
     return
                             
 
@@ -1041,10 +1049,72 @@ def customer_records():
         for item in accounts:
             account = item.split(',')
             account_name = account[0].strip()
-            ammount_spent = account[2].strip()
+            ammount_spent = account[3].strip()
 
             #prints information of all registered accounts
             print(f'Username:{account_name}          Ammount spent:{ammount_spent}')
+
+    menu = '''What would you like to do?
+    
+1.Back to main menu
+
+Choice: '''
+
+    #executes user's choice
+    while TF == True:
+        try:
+            print('\n')
+            option = int(input(menu))
+        except:
+            print('Invalid option, please try again.')
+            time.sleep(0.75)
+            continue
+
+        if option == 1:
+            clear()
+            time.sleep(0.75)
+            print('Sending you back to the main menu...')
+            time.sleep(3)
+            TF = False
+            main_menu()
+            return
+
+        else:
+            print('\n')
+            print('Invalid option, please try again.')
+            time.sleep(0.75)
+            continue
+
+
+
+
+def specific_customer_records():
+    TF = True
+
+    #ask for account name
+    while TF == True:
+        acc_name = input("Please enter account's username: ")
+        clear()
+        time.sleep (0.75)
+
+        with open ('account_info.txt') as fhandler:
+            accounts = fhandler.readlines()
+            for item in accounts:
+                account = item.split(',')
+                account_name = account[0].strip()
+                ammount_spent = account[3].strip()
+                if account_name == acc_name:
+                    print(f"{account_name}'s records\n")
+                    print(f'Username:{account_name}          Ammount spent:{ammount_spent}\n')
+                    break
+            else:
+                print("Invalid username please try again")
+                time.sleep(3)
+                clear()
+                time.sleep(0.75)
+                continue
+            break
+    #read every lines to find corresponding name then print line
 
     menu = '''What would you like to do?
     
@@ -1075,9 +1145,6 @@ Choice: '''
             print('Invalid option, please try again.')
             time.sleep(0.75)
             continue
-
-
-
 
 #starts the program
 start()

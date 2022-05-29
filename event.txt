@@ -8,3 +8,4 @@
 8, Technology, Hackathon, 135
 9, Art, Art Gallery Showcase, 90
 10, General Entertainment, Drifting Competition, 85
+11, E-Sports, League of Legends MSI Competition, 200

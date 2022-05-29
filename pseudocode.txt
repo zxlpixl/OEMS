@@ -82,8 +82,10 @@ FUNCTION main_menu()
     1. Add New Event
     2. Modify Event 
     3. Event Information 
-    4. Customer Records 
-    6. Exit
+    4. All Customer Records 
+    5. Specific Customer Records
+    6. Logout
+    7. Exit
 
     Choice: '''
         
@@ -110,9 +112,12 @@ FUNCTION main_menu()
                 CALL FUNCTION customer_record()
                 RETURN
             ELIF answer == 5 THEN
-                CALL FUNCTION log_out()
+                CALL FUNCTION specific_customer_record()
                 RETURN
             ELIF answer == 6 THEN
+                CALL FUNCTION log_out()
+                RETURN
+            ELIF answer == 7 THEN
                 CALL FUNCTION clear()
                 CALL FUNCTION quit()
             ELSE
@@ -272,6 +277,7 @@ FUNCTION log_in()
                                 CALL FUNCTION clear()
                                 sleeps for 0.75 seconds
                                 PRINT('Redirecting you to the menu...')
+                                sleeps for 3 seconds
                                 info_file.close
                                 session_status = 'registered'
                                 TF = False
@@ -742,6 +748,7 @@ FUNCTION modify_event()
                         ENDIF
 
                     ENDWHILE
+                    BREAK
 
                 
                 ELIF option_input == 3 THEN
@@ -757,6 +764,7 @@ FUNCTION modify_event()
                         ENDIF
 
                     ENDWHILE
+                    BREAK
 
                 ELIF option_input == 4 THEN
                     BREAK
@@ -970,10 +978,13 @@ FUNCTION cart()
                     sleeps for 3 seconds
                     CALL FUNCTION main_menu()
                 ELSE
-                    PRINT('The event ID you entered does not exist, please try again.')
-                    sleeps for 0.75 seconds
-                    BREAK
-                ENDIF    
+                    CONTINUE
+
+                ENDIF
+
+            ELSE
+                PRINT('Input ID does not exists please try again')
+                CONTINUE    
 
             ENDFOR
 
@@ -1162,6 +1173,73 @@ FUNCTION customer_records()
 ENDFUNCTION
 
 
+FUNCTION specific_customer_record()
+    TF = True
+
+
+    DOWHILE TF = True
+        PRINT("Please enter account's username: ")
+        Get acc_name
+        CALL FUNCTION clear
+        sleeps for 0.75 seconds
+
+        WITH OPEN account_info.txt as fhandler in READ mode
+            readlines in fhandler as accounts
+            FOR items in accounts
+                SPLIT item as account with (',') as delimiter
+                STRIP account with index of 0 as account_name
+                STRIP account with index of 2 as amount_spent
+
+                IF account_name == acc_name THEN
+                    PRINT(f"{account_name}'s records\n")
+                    PRINT(f'Username:{account_name}          Ammount spent:{ammount_spent}\n')
+                    break
+                ENDIF
+
+            ELSE
+                PRINT("Invalid username please try again")
+                sleeps for 3 seconds
+                CALL FUNCTION clear
+                sleeps for 0.75 seconds
+                CONTINUE
+            
+            ENDFOR
+            BREAK
+    ENDWHILE
+        
+        menu = '''What would you like to do?
+    
+    1.Back to main menu
+
+    Choice: '''
+
+    DOWHILE TF == True
+        TRY
+            PRINT(menu)
+            Get option
+        CATCH
+            PRINT('Invalid option, please try again.')
+            sleeps for 0.75 seconds
+            CONTINUE
+
+        IF option == 1 THEN
+            CALL FUNCTION clear()
+            sleeps for 0.75 seconds
+            PRINT('Sending you back to the main menu...')
+            sleeps for 3 seconds
+            TF = False
+            CALL FUNCTION main_menu()
+            RETURN
+        ELSE
+            PRINT('\n')
+            PRINT('Invalid option, please try again.')
+            sleeps for 0.75 seconds
+            CONTINUE
+        ENDIF
+
+    ENDWHILE
+
+ENDFUNCTION        
 
 
 
