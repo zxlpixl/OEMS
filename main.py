@@ -1,8 +1,3 @@
-#LAI CHUN HOONG
-#TP063514
-#LEE ZHIXIANG
-#TP064098
-
 import time
 import os
 
