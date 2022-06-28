@@ -1,3 +1,3 @@
-# AEMS
+# OEMS
 Python Assignment
-A simple online event management system
+
